@@ -1,16 +1,18 @@
 package com.example.minimoneybox.ui.splash
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.minimoneybox.R
-import com.example.minimoneybox.preferences.SecuredSharedPreferences
+import com.example.minimoneybox.preferences.UserPreferences
 import com.example.minimoneybox.ui.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class SplashViewModel(
-    private val securedPreferences: SecuredSharedPreferences,
+    private val preferences: UserPreferences,
     private val coroutineContext: CoroutineContext = Dispatchers.Main
 ) : BaseViewModel() {
 
@@ -20,17 +22,18 @@ class SplashViewModel(
 
     private fun goNext() {
         viewModelScope.launch(coroutineContext) {
-            delay(SPLASH_TIME_DELAY)
+            preferences.isLoggedIn.collect { loggedIn ->
+                delay(SPLASH_TIME_DELAY)
 
-            val direction =
-                if (securedPreferences.isLoggedIn) {
-                    SplashScreenFragmentDirections.fromSplashFragmentToUserAccountsFragment()
-                } else {
-                    SplashScreenFragmentDirections.fromSplashFragmentToLoginFragment()
-                }
+                val direction =
+                    if (loggedIn) {
+                        SplashScreenFragmentDirections.fromSplashFragmentToUserAccountsFragment()
+                    } else {
+                        SplashScreenFragmentDirections.fromSplashFragmentToLoginFragment()
+                    }
 
-            goFirstScreen(direction, R.id.splashFragment)
-
+                goFirstScreen(direction, R.id.splashFragment)
+            }
         }
     }
 

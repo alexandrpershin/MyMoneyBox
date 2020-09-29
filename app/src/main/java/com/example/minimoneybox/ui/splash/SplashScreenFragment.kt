@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.example.minimoneybox.databinding.FragmentSplashScreenBinding
 import com.example.minimoneybox.ui.BaseFragment
 import com.example.minimoneybox.ui.ErrorType
@@ -26,8 +27,22 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding, SplashVie
 
     private fun hideSystemBottomNavigationAndStatusBar() {
         requireActivity().window.decorView.apply {
-            systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
+            systemUiVisibility =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
         }
+    }
+
+
+    private fun showSystemBottomNavigationAndStatusBar() {
+        requireActivity().window.decorView.apply {
+            systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        showSystemBottomNavigationAndStatusBar()
     }
 
     override fun addListeners(binding: FragmentSplashScreenBinding) {}

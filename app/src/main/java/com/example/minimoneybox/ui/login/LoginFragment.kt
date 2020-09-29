@@ -2,37 +2,42 @@ package com.example.minimoneybox.ui.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import com.example.minimoneybox.R
+import com.example.minimoneybox.databinding.FragmentLoginBinding
+import com.example.minimoneybox.ui.BaseFragment
+import com.example.minimoneybox.ui.ErrorType
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LoginFragment : Fragment() {
 
-    override fun onCreateView(
+class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
+
+    override val viewModel: LoginViewModel by viewModel()
+
+    override fun initBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = layoutInflater.inflate(R.layout.fragment_login, container, false)
-        return view
+    ): FragmentLoginBinding = FragmentLoginBinding.inflate(inflater, container, false)
+
+    override fun initComponents(binding: FragmentLoginBinding) {
+
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.btnLogin).setOnClickListener {
-
-            val directions = LoginFragmentDirections.fromLoginFragmentToUserAccountsFragment()
-
-
-
-            val builder = NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
-            findNavController().navigate(directions, builder)
+    override fun addListeners(binding: FragmentLoginBinding) {
+        with(binding) {
+            btnSignIn.setOnClickListener {
+                val directions = LoginFragmentDirections.fromLoginFragmentToUserAccountsFragment()
+                viewModel.goFirstScreen(directions, R.id.loginFragment)
+            }
         }
+    }
+
+    override fun addObservers(binding: FragmentLoginBinding) {
+    }
+
+    override fun errorHandler(errorType: ErrorType) {
     }
 
 }

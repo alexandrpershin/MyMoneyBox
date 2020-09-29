@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+
 repositories {
     google()
 }
@@ -12,7 +15,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.example.minimoneybox"
-        minSdkVersion 21
+        minSdkVersion 23      //TODO change to 21 later
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -46,6 +49,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
     implementation 'com.google.android.material:material:1.2.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     implementation 'com.airbnb.android:lottie:3.0.0'
 
@@ -58,9 +62,12 @@ dependencies {
     //Koin dependency injection
     implementation "org.koin:koin-android:$koinVersion"
     implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
-    implementation "org.koin:koin-core:$koinVersion"
+//    implementation "org.koin:koin-core:$koinVersion"
 //    implementation "org.koin:koin-android-architecture:0.8.2"
 
+    // Navigation controller
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
 
 }

@@ -3,8 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph.xml"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/splashFragment">
 
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.minimoneybox.ui.splash.SplashScreenFragment"
+        android:label="SplashScreenFragment"
+        tools:layout="@layout/fragment_splash_screen"
+        >
+
+        <action
+            android:id="@+id/fromSplashFragmentToLoginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/fromSplashFragmentToUserAccountsFragment"
+            app:destination="@id/userAccountsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"

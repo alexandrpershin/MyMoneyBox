@@ -28,9 +28,7 @@ android {
         }
     }
 
-    viewBinding {
-        enabled = true
-    }
+    viewBinding.enabled = true
 
     compileOptions {
         sourceCompatibility 1.8

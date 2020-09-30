@@ -18,6 +18,8 @@ class MoneyboxApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        instance = this
+
         startKoin {
             androidLogger()
             androidContext(this@MoneyboxApplication)
@@ -25,5 +27,8 @@ class MoneyboxApplication : Application() {
         }
     }
 
+    companion object {
+        lateinit var instance: MoneyboxApplication
+    }
 
 }

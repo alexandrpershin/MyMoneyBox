@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.databinding.FragmentSplashScreenBinding
 import com.example.minimoneybox.ui.BaseFragment
-import com.example.minimoneybox.ui.ErrorType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding, SplashViewModel>() {

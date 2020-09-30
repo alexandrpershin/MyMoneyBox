@@ -64,9 +64,27 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
-    // Preferences DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha01"
+    // Encryption for SharedPref aescrypt
+    implementation "com.scottyab:aescrypt:$rootProject.aescryptVersion"
 
+    //Retrofit 2
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
+    // Kotlin coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+
+    //OkHttp client
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+
+    //Chuck interceptor
+    debugImplementation "com.github.chuckerteam.chucker:library:3.2.0"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.2.0"
+
+    //Gson
+    implementation "com.google.code.gson:gson:$gsonVersion"
 
 }

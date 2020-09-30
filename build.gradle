@@ -23,7 +23,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -33,5 +33,11 @@ task clean(type: Delete) {
 
 ext {
     // App dependencies
+    gsonVersion = '2.8.6'
+    chuckVersion = '1.1.0'
+    okHttpVersion = '4.2.0'
+    retrofitVersion = '2.7.0'
     koinVersion = "2.0.1"
+    aescryptVersion = '0.0.1'
+    coroutinesVersion = '1.3.0'
 }

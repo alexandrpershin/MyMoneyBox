@@ -8,21 +8,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.example.minimoneybox.R
+import com.example.minimoneybox.api.ErrorType
+import com.example.minimoneybox.extensions.makeVisible
+import com.example.minimoneybox.extensions.setVisible
 import com.example.minimoneybox.utils.NavigationCommand
 
 
 abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
     Fragment() {
     protected val TAG: String = this::class.java.simpleName
-    private var originalInputMode: Int? = null
-    open var softInputAdjustResize: Boolean = false
-    protected lateinit var binding: DB
+
+    private var binding: DB? = null
+
     abstract val viewModel: VM
+
+    protected open var progressBar: ProgressBar? = null
+
     abstract fun initBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,21 +48,16 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
         savedInstanceState: Bundle?
     ): View? {
         binding = initBinding(inflater, container, savedInstanceState)
-        initComponents(binding)
-        addListeners(binding)
-        addObservers(binding)
+        initComponents(binding!!)
+        addListeners(binding!!)
+        addObservers(binding!!)
 
         viewModel.errorNotifier.observe(viewLifecycleOwner, Observer {
             errorHandler(it)
         })
 
-        viewModel.loadingState.observe(viewLifecycleOwner, Observer
-        {
-//            if (it) {
-//                UiUtils.showLoadingDialog(context, false, "")
-//            } else {
-//                UiUtils.dismissDialog()
-//            }
+        viewModel.loadingState.observe(viewLifecycleOwner, Observer { visible ->
+            progressBar?.setVisible(visible)
         })
         viewModel.forceKeyboardState.observe(viewLifecycleOwner, Observer
         { keyboardState ->
@@ -66,9 +69,7 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
             }
         })
 
-        modifySoftInput()
-
-        return binding.root
+        return binding!!.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -98,7 +99,6 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
 
     }
 
-
     private fun closeKeyboard() {
         activity?.let { safeActivity ->
             val imm: InputMethodManager =
@@ -118,28 +118,8 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
 
     override fun onDestroy() {
         super.onDestroy()
-        restoreSoftInput()
+        binding = null
     }
 
-    private fun restoreSoftInput() {
-        originalInputMode?.let {
-            activity?.window?.setSoftInputMode(it)
-        }
-    }
 
-    private fun modifySoftInput() {
-        if (softInputAdjustResize) {
-            originalInputMode = activity?.window?.attributes?.softInputMode
-
-            activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-//            Tracker.logDebug(
-//                TAG,
-//                "Setting softInputMode as adjustResize: ${WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE}"
-//            )
-//            Tracker.logDebug(
-//                TAG,
-//                "Current softInputMode as adjustResize: ${activity?.window?.attributes?.softInputMode}"
-//            )
-        }
-    }
 }

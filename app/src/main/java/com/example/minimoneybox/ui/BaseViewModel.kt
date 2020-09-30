@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.annotation.UiThread
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
+import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.utils.NavigationCommand
 import com.example.minimoneybox.utils.SingleLiveEvent
 
@@ -65,13 +66,17 @@ abstract class BaseViewModel : ViewModel() {
         _loadingState.value = false
     }
 
-}
+    @UiThread
+    fun showSoftKeyboard() {
+        _forceKeyboardState.value = KeyboardState.Show
+    }
 
-sealed class ErrorType {
-    data class GenericError(val message: String) : ErrorType()
-    data class LoginError(val message: String) : ErrorType()
-}
+    @UiThread
+    fun hideSoftKeyboard() {
+        _forceKeyboardState.value = KeyboardState.Hide
+    }
 
+}
 sealed class KeyboardState {
     object Hide : KeyboardState()
     object Show : KeyboardState()

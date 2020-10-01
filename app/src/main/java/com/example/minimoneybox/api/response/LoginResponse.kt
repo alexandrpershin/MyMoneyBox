@@ -66,12 +66,3 @@ data class Action(
     val Label: String,
     val Type: String
 )
-
-fun LoginResponse.toUserModel(): UserModel {
-    return UserModel(
-        token = session.bearerToken,
-        email = user.email,
-        firstName = user.firstName,
-        lastName = user.lastName
-    )
-}

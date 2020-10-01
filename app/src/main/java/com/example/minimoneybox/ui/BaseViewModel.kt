@@ -1,5 +1,6 @@
 package com.example.minimoneybox.ui
 
+import android.os.Bundle
 import android.os.Parcelable
 import androidx.annotation.UiThread
 import androidx.lifecycle.ViewModel
@@ -31,9 +32,13 @@ abstract class BaseViewModel : ViewModel() {
         _navigation.value = NavigationCommand.To(direction)
     }
 
+    fun goToWithArgs(destinationId: Int, args: Bundle) {
+        _navigation.value = NavigationCommand.WithArgs(destinationId, args)
+    }
+
     @UiThread
-    fun goFirstScreen(direction: NavDirections, destinationId: Int) {
-        _navigation.value = NavigationCommand.FirstOpen(direction, destinationId)
+    fun goFirstScreen(startDestination: Int) {
+        _navigation.value = NavigationCommand.FirstOpen(startDestination)
     }
 
     @UiThread
@@ -77,6 +82,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
 }
+
 sealed class KeyboardState {
     object Hide : KeyboardState()
     object Show : KeyboardState()

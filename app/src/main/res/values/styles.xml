@@ -30,7 +30,23 @@
     </style>
 
     <style name="Widget.Support.CoordinatorLayout" parent="android:Widget">
-        @null
+        @null</style>
+
+    <style name="ClickableStyle">
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="TextView.CardViewTitle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/blue_lagoon</item>
+    </style>
+
+    <style name="TextView.CardViewBody" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/blue_lagoon</item>
+    </style>
+
+    <style name="TextView.CardViewSmall" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/shakespeare</item>
     </style>
 
 </resources>

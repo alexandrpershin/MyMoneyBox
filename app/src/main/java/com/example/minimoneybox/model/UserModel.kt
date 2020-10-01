@@ -1,8 +1,11 @@
 package com.example.minimoneybox.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 class UserModel(
-    val token: String,
-    val email: String,
-    val firstName: String? = null,
-    val lastName: String? = null
+    @PrimaryKey(autoGenerate = false) val id: Long = 1L,
+    val userName: String = "",
+    var accountModel: UserAccountsModel? = null
 )

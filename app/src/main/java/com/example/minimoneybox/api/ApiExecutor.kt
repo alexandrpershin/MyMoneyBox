@@ -56,7 +56,12 @@ private fun <T> parseBackendError(result: Response<T>): TaskResult<T> {
 
 private fun <T> handleUnauthorizedError(errorResponse: CommonServerErrorResponse?): TaskResult<T> {
     return if (errorResponse != null) {
-        TaskResult.ErrorResult(ErrorType.LoginError(message = errorResponse.message))
+        return when (errorResponse.name) {
+            KEY_TOKEN_EXPIRED -> { // Can be improved with dedicated error code from backend about token experation
+                TaskResult.ErrorResult(ErrorType.TokenExpired(R.string.error_message_token_expired.getString()))
+            }
+            else -> TaskResult.ErrorResult(ErrorType.LoginError(message = errorResponse.message))
+        }
     } else {
         TaskResult.ErrorResult(ErrorType.LoginError(R.string.error_message_wrong_credentials.getString()))
     }
@@ -77,6 +82,7 @@ private fun getErrorResponse(errorResponseBody: ResponseBody?): CommonServerErro
 }
 
 private const val TAG = "ApiExecutor"
+private const val KEY_TOKEN_EXPIRED = "Bearer token expired"
 
 private const val CODE_BAD_REQUEST = 400
 private const val CODE_UNAUTHORIZED = 401

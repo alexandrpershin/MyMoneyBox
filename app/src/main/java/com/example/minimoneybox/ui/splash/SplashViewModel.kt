@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.minimoneybox.R
 import com.example.minimoneybox.preferences.SecuredSharedPreferences
 import com.example.minimoneybox.ui.BaseViewModel
+import com.example.minimoneybox.utils.ScreenDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -24,12 +25,12 @@ class SplashViewModel(
 
             val direction =
                 if (preferences.isLoggedIn) {
-                    SplashScreenFragmentDirections.fromSplashFragmentToUserAccountsFragment()
+                    ScreenDirections.USER_ACCOUNTS_FRAGMENT
                 } else {
-                    SplashScreenFragmentDirections.fromSplashFragmentToLoginFragment()
+                    ScreenDirections.LOGIN_FRAGMENT
                 }
 
-            goFirstScreen(direction, R.id.splashFragment)
+            goFirstScreen(direction)
         }
     }
 

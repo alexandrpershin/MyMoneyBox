@@ -1,10 +1,8 @@
 package com.example.minimoneybox.ui.splash
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.databinding.FragmentSplashScreenBinding
 import com.example.minimoneybox.ui.BaseFragment
@@ -16,8 +14,7 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding, SplashVie
 
     override fun initBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        container: ViewGroup?
     ): FragmentSplashScreenBinding = FragmentSplashScreenBinding.inflate(inflater, container, false)
 
     override fun initComponents(binding: FragmentSplashScreenBinding) {

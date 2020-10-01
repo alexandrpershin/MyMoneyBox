@@ -1,9 +1,7 @@
 package com.example.minimoneybox.ui.login
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.databinding.FragmentLoginBinding
@@ -19,8 +17,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
 
     override fun initBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        container: ViewGroup?
     ): FragmentLoginBinding = FragmentLoginBinding.inflate(inflater, container, false)
 
     override fun initComponents(binding: FragmentLoginBinding) {

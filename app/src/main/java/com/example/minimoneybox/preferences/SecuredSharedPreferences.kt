@@ -19,22 +19,18 @@ class SecuredSharedPreferences(private val context: Application) {
         get() = appPreferencesPreferences.getString(KEY_TOKEN, "")
         set(value) = appPreferencesPreferences.edit().putString(KEY_TOKEN, value).apply()
 
-    var userName: String
-        get() = appPreferencesPreferences.getString(KEY_USER_NAME, "")
-        set(value) = appPreferencesPreferences.edit().putString(KEY_USER_NAME, value).apply()
-
     var isLoggedIn: Boolean
         get() = appPreferencesPreferences.getBoolean(KEY_LOGGED_IN, false)
         set(value) = appPreferencesPreferences.edit().putBoolean(KEY_LOGGED_IN, value).apply()
 
     fun clear() {
-        appPreferencesPreferences.edit().clear()
+        token = ""
+        isLoggedIn = false
     }
 
     companion object {
         private const val PREFERENCES_NAME = "money_box_test_app_prefs"
         private const val KEY_TOKEN = "token"
-        private const val KEY_USER_NAME = "user_name"
         private const val KEY_LOGGED_IN = "logged_in"
         private const val APP_PREFERENCE_CRYPTO = "db_app_preference"
     }

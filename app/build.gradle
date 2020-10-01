@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+apply plugin: 'kotlin-kapt'
+
 
 repositories {
     google()
@@ -37,6 +39,10 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    kapt {
+        generateStubs = true
     }
 
 }
@@ -86,5 +92,13 @@ dependencies {
 
     //Gson
     implementation "com.google.code.gson:gson:$gsonVersion"
+
+    // Room database
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha07"
+
+
 
 }

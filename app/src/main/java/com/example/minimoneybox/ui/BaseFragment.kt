@@ -6,18 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.ErrorType
-import com.example.minimoneybox.extensions.makeVisible
 import com.example.minimoneybox.extensions.setVisible
+import com.example.minimoneybox.extensions.showErrorMessage
 import com.example.minimoneybox.utils.NavigationCommand
 
 
@@ -33,8 +32,7 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
 
     abstract fun initBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        container: ViewGroup?
     ): DB
 
     abstract fun initComponents(binding: DB)
@@ -47,13 +45,14 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = initBinding(inflater, container, savedInstanceState)
+        binding = initBinding(inflater, container)
         initComponents(binding!!)
         addListeners(binding!!)
         addObservers(binding!!)
 
         viewModel.errorNotifier.observe(viewLifecycleOwner, Observer {
             errorHandler(it)
+            handleTokenExpiration(it)
         })
 
         viewModel.loadingState.observe(viewLifecycleOwner, Observer { visible ->
@@ -72,6 +71,13 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
         return binding!!.root
     }
 
+    private fun handleTokenExpiration(errorType: ErrorType) {
+        if (errorType is ErrorType.TokenExpired) {
+            viewModel.goFirstScreen(R.id.loginFragment)
+            showErrorMessage(errorType.message)
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.navigation.observe(viewLifecycleOwner, Observer<NavigationCommand> { command ->
@@ -87,13 +93,17 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
                         }
                     }
 
-                is NavigationCommand.WithArgs ->
-                    TODO()
-                is NavigationCommand.FirstOpen ->
-                    findNavController().navigate(
-                        command.directions,
-                        NavOptions.Builder().setPopUpTo(command.destinationId, true).build()
-                    )
+                is NavigationCommand.WithArgs -> {
+                    findNavController().navigate(command.destinationId, command.args)
+                }
+                is NavigationCommand.FirstOpen -> {
+                    val navHostFragment: NavHostFragment =
+                        requireActivity().supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
+                    val inflater = navHostFragment.navController.navInflater
+                    val graph = inflater.inflate(R.navigation.main_nav_graph)
+                    graph.startDestination = command.startDestination
+                    findNavController().graph = graph
+                }
             }
         })
 
@@ -120,6 +130,5 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
         super.onDestroy()
         binding = null
     }
-
 
 }

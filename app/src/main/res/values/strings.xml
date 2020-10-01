@@ -22,7 +22,15 @@
     <string name="error_message_bad_request">Bad request.</string>
     <string name="error_message_internal_server_error">Internal server error occurred.</string>
     <string name="error_empty_password">Password is empty</string>
+    <string name="error_message_token_expired">Your token has been expired. Please log in again.</string>
     <string name="message_internet_error">Internet connection appears to be offline</string>
+
+    <string name="text_greeting">Hello,</string>
+    <string name="text_total_plan_value">Your plan value is</string>
+    <string name="title_login_screen">Log in</string>
+    <string name="title_user_accounts_screen">User Accounts</string>
+    <string name="label_plan_value">Plan Value:</string>
+    <string name="label_moneybox">Moneybox:</string>
 
 
 </resources>

@@ -5,14 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.api.TaskResult
-import com.example.minimoneybox.api.doOnError
-import com.example.minimoneybox.api.doOnSuccess
 import com.example.minimoneybox.api.response.LoginResponse
-import com.example.minimoneybox.api.response.toUserModel
 import com.example.minimoneybox.extensions.getString
+import com.example.minimoneybox.model.UserModel
 import com.example.minimoneybox.preferences.SecuredSharedPreferences
 import com.example.minimoneybox.repository.AuthRepository
 import com.example.minimoneybox.ui.BaseViewModel
+import com.example.minimoneybox.utils.ScreenDirections
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -20,6 +19,21 @@ class LoginViewModel(
     private val authRepository: AuthRepository
 ) : BaseViewModel() {
 
+    init {
+        clearPreviousSaveData()
+    }
+
+    /**
+     * In case of token expiration the app will force log out user, navigate to [LoginFragment] and clears all saved data
+     * see [BaseFragment.handleTokenExpiration]
+     * */
+
+    private fun clearPreviousSaveData() {
+        viewModelScope.launch {
+            preferences.clear()
+            authRepository.deleteUser()
+        }
+    }
 
     fun logIn(email: String, password: String, userName: String) {
         val valid = isUserInputValid(email, password)
@@ -31,29 +45,25 @@ class LoginViewModel(
 
                 when (result) {
                     is TaskResult.SuccessResult -> {
+                        hideSoftKeyboard()
                         hideLoading()
-
-                        val user = result.data.toUserModel()
                         preferences.isLoggedIn = true
-                        preferences.token = user.token
-                        preferences.userName = userName
+                        preferences.token = result.data.session.bearerToken
 
-                        goFirstScreen(
-                            LoginFragmentDirections.fromLoginFragmentToUserAccountsFragment(),
-                            R.id.loginFragment
-                        )
+                        val newUser = UserModel(userName = userName)
+                        authRepository.saveNewUserToDb(newUser)
 
+                        goFirstScreen(ScreenDirections.USER_ACCOUNTS_FRAGMENT)
                     }
                     is TaskResult.ErrorResult -> {
-                        notifyError(result.type)
+                        hideSoftKeyboard()
+                        notifyError(result.errorType)
                         hideLoading()
-
                     }
                 }
 
             }
         }
-
     }
 
     private fun isUserInputValid(email: String, password: String): Boolean {

@@ -40,7 +40,7 @@ private fun <T> parseBackendError(result: Response<T>): TaskResult<T> {
 
     return when (result.code()) {
         CODE_BAD_REQUEST -> {
-            TaskResult.ErrorResult(ErrorType.GenericError(Exception(R.string.error_message_bad_request.getString())))
+            handleBadRequestError(errorResponse)
         }
 
         CODE_UNAUTHORIZED -> {
@@ -56,7 +56,7 @@ private fun <T> parseBackendError(result: Response<T>): TaskResult<T> {
 
 private fun <T> handleUnauthorizedError(errorResponse: CommonServerErrorResponse?): TaskResult<T> {
     return if (errorResponse != null) {
-        return when (errorResponse.name) {
+        when (errorResponse.name) {
             KEY_TOKEN_EXPIRED -> { // Can be improved with dedicated error code from backend about token experation
                 TaskResult.ErrorResult(ErrorType.TokenExpired(R.string.error_message_token_expired.getString()))
             }
@@ -64,6 +64,14 @@ private fun <T> handleUnauthorizedError(errorResponse: CommonServerErrorResponse
         }
     } else {
         TaskResult.ErrorResult(ErrorType.LoginError(R.string.error_message_wrong_credentials.getString()))
+    }
+}
+
+private fun <T> handleBadRequestError(errorResponse: CommonServerErrorResponse?): TaskResult<T> {
+    return if (errorResponse != null ) {
+        TaskResult.ErrorResult(ErrorType.GenericError(Exception(errorResponse.name)))
+    } else {
+        TaskResult.ErrorResult(ErrorType.GenericError(Exception(R.string.error_message_bad_request.getString())))
     }
 }
 

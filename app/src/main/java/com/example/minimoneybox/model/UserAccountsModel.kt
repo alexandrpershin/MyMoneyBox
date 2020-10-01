@@ -10,8 +10,9 @@ data class UserAccountsModel(
 
 @Parcelize
 data class InvestorProductModel(
+    val id : Int = -1,
     val planValue: Double = 0.0,
-    val moneybox: Double = 0.0,
+    var moneybox: Double = 0.0,
     val name: String = "",
     val friendlyName: String = ""
 ) : Parcelable

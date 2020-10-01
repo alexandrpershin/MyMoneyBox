@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import com.example.minimoneybox.model.UserAccountsModel
 import com.example.minimoneybox.model.UserModel
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 
 /**

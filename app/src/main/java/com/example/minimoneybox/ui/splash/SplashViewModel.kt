@@ -1,7 +1,6 @@
 package com.example.minimoneybox.ui.splash
 
 import androidx.lifecycle.viewModelScope
-import com.example.minimoneybox.R
 import com.example.minimoneybox.preferences.SecuredSharedPreferences
 import com.example.minimoneybox.ui.BaseViewModel
 import com.example.minimoneybox.utils.ScreenDirections

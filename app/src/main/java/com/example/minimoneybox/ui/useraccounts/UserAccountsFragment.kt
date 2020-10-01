@@ -5,7 +5,6 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.minimoneybox.R
@@ -30,8 +29,8 @@ class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccou
         progressBar = binding.partialProgress.progressBar
 
         binding.rvAccounts.apply {
-            accountsAdapter.onItemClick = {model ->
-                viewModel.goToAccountDetails(model)
+            accountsAdapter.onItemClick = {productId ->
+                viewModel.goToAccountDetails(productId)
             }
             adapter = accountsAdapter
             layoutManager = LinearLayoutManager(requireActivity())

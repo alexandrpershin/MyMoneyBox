@@ -5,6 +5,7 @@
     <string name="prompt_password">Password</string>
     <string name="prompt_full_name">Full Name (optional)</string>
     <string name="action_sign_in">Sign in</string>
+    <string name="action_add_money">Add £10</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="email_address_error">Please enter a correct email address</string>
@@ -29,8 +30,11 @@
     <string name="text_total_plan_value">Your plan value is</string>
     <string name="title_login_screen">Log in</string>
     <string name="title_user_accounts_screen">User Accounts</string>
+    <string name="title_individual_account_screen">Individual Account</string>
+    <string name="text_pound_value">£%.2f</string>
     <string name="label_plan_value">Plan Value:</string>
     <string name="label_moneybox">Moneybox:</string>
+    <string name="message_payment_success">Payment successful</string>
 
 
 </resources>

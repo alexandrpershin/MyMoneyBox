@@ -49,8 +49,8 @@
         android:label="AccountDetailsFragment"
         tools:layout="@layout/fragment_account_details">
         <argument
-            android:name="account_details"
-            app:argType="com.example.minimoneybox.model.InvestorProductModel" />
+            android:name="account_details_id"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

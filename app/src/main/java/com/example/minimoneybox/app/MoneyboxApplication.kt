@@ -1,6 +1,7 @@
 package com.example.minimoneybox.app
 
 import android.app.Application
+import com.example.minimoneybox.ui.accountdetails.AccountDetailsDi
 import com.example.minimoneybox.ui.login.LoginDi
 import com.example.minimoneybox.ui.splash.SplashDi
 import com.example.minimoneybox.ui.useraccounts.UserAccountsDi
@@ -14,7 +15,8 @@ class MoneyboxApplication : Application() {
         appModule,
         SplashDi.getModule(),
         LoginDi.getModule(),
-        UserAccountsDi.getModule()
+        UserAccountsDi.getModule(),
+        AccountDetailsDi.getModule()
     )
 
     override fun onCreate() {

@@ -6,13 +6,20 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.EditText
 import androidx.annotation.LayoutRes
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.minimoneybox.R
 
 /**
  * View extensions
  * */
+
+fun View.playBounceAnimation(){
+    val bounceAnim = AnimationUtils.loadAnimation(context, R.anim.anim_bounce)
+    startAnimation(bounceAnim)
+}
 
 fun View.makeGone() {
     this.visibility = View.GONE

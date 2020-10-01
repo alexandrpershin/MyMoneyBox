@@ -1,7 +1,6 @@
 package com.example.minimoneybox.ui
 
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.annotation.UiThread
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
@@ -27,6 +26,10 @@ abstract class BaseViewModel : ViewModel() {
     val forceKeyboardState
         get() = _forceKeyboardState
 
+    private val _showSnackBar: SingleLiveEvent<String> = SingleLiveEvent()
+    val showSnackBar
+        get() = _showSnackBar
+
     @UiThread
     fun goTo(direction: NavDirections) {
         _navigation.value = NavigationCommand.To(direction)
@@ -39,21 +42,6 @@ abstract class BaseViewModel : ViewModel() {
     @UiThread
     fun goFirstScreen(startDestination: Int) {
         _navigation.value = NavigationCommand.FirstOpen(startDestination)
-    }
-
-    @UiThread
-    fun goBack() {
-        _navigation.value = NavigationCommand.Back
-    }
-
-    @UiThread
-    fun goBackTo(directionId: Int) {
-        _navigation.value = NavigationCommand.BackTo(directionId)
-    }
-
-    @UiThread
-    fun goBackWithResult(resultKey: String, result: Parcelable) {
-        _navigation.value = NavigationCommand.BackWithResult(resultKey, result)
     }
 
     @UiThread
@@ -72,8 +60,8 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     @UiThread
-    fun showSoftKeyboard() {
-        _forceKeyboardState.value = KeyboardState.Show
+    fun showSnackBar(message: String) {
+        _showSnackBar.value = message
     }
 
     @UiThread

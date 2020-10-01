@@ -17,6 +17,7 @@ import com.example.minimoneybox.R
 import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.extensions.setVisible
 import com.example.minimoneybox.extensions.showErrorMessage
+import com.example.minimoneybox.extensions.showSnackBar
 import com.example.minimoneybox.utils.NavigationCommand
 
 
@@ -57,6 +58,10 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
 
         viewModel.loadingState.observe(viewLifecycleOwner, Observer { visible ->
             progressBar?.setVisible(visible)
+        })
+
+        viewModel.showSnackBar.observe(viewLifecycleOwner, Observer { message ->
+            showSnackBar(message)
         })
         viewModel.forceKeyboardState.observe(viewLifecycleOwner, Observer
         { keyboardState ->
@@ -124,7 +129,6 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
             imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

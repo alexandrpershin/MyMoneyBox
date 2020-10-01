@@ -1,5 +1,6 @@
 package com.example.minimoneybox.repository.repositoryImpl
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.minimoneybox.api.TaskResult
 import com.example.minimoneybox.api.executeAsyncRequest

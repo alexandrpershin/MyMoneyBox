@@ -5,5 +5,5 @@ import com.example.minimoneybox.R
 object ScreenDirections {
     const val USER_ACCOUNTS_FRAGMENT = R.id.userAccountsFragment
     const val LOGIN_FRAGMENT = R.id.loginFragment
-    const val ACCOUNT_DETAILS_FRAGMENT = R.id.accountDetailsFragment
+    const val PRODUCT_ACCOUNT_DETAILS_FRAGMENT = R.id.productAccountDetailsFragment
 }

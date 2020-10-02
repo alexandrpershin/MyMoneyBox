@@ -1,22 +1,25 @@
 package com.example.minimoneybox.ui.useraccounts
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.minimoneybox.R
 import com.example.minimoneybox.databinding.ItemInvestmentAccountBinding
-import com.example.minimoneybox.extensions.getString
-import com.example.minimoneybox.model.InvestorProduct
+import com.example.minimoneybox.model.ProductAccount
 
 typealias OnItemClick = (productId: Int) -> Unit
 
-class UserAccountsAdapter(private val accounts: MutableList<InvestorProduct> = mutableListOf()) :
+class UserAccountsAdapter(
+    private val context: Context,
+    private val accounts: MutableList<ProductAccount> = mutableListOf()
+) :
     RecyclerView.Adapter<UserAccountsAdapter.ViewHolder>() {
 
     var onItemClick: OnItemClick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
+        val inflater = LayoutInflater.from(context)
         val binding = ItemInvestmentAccountBinding.inflate(inflater, parent, false)
 
         return ViewHolder(binding)
@@ -28,9 +31,9 @@ class UserAccountsAdapter(private val accounts: MutableList<InvestorProduct> = m
 
     override fun getItemCount(): Int = accounts.size
 
-    fun updateData(products: List<InvestorProduct>) {
+    fun updateData(productAccounts: List<ProductAccount>) {
         accounts.clear()
-        accounts.addAll(products)
+        accounts.addAll(productAccounts)
 
         notifyDataSetChanged()
     }
@@ -41,8 +44,8 @@ class UserAccountsAdapter(private val accounts: MutableList<InvestorProduct> = m
         fun bind(position: Int) {
             val model = accounts[position]
             with(binding) {
-                tvPlanValue.text = R.string.text_pound_value.getString(model.planValue)
-                tvMoneybox.text = R.string.text_pound_value.getString(model.moneybox)
+                tvPlanValue.text = context.getString(R.string.text_pound_value, model.planValue)
+                tvMoneybox.text =  context.getString(R.string.text_pound_value, model.moneybox)
                 tvAccountName.text = model.friendlyName
 
                 itemView.setOnClickListener {

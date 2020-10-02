@@ -2,10 +2,8 @@ package com.example.minimoneybox.ui.login
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.minimoneybox.R
 import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.databinding.FragmentLoginBinding
-import com.example.minimoneybox.extensions.getString
 import com.example.minimoneybox.extensions.showErrorMessage
 import com.example.minimoneybox.ui.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -41,21 +39,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
     override fun errorHandler(errorType: ErrorType) {
         when (errorType) {
             is ErrorType.LoginError -> {
-                showErrorMessage(errorType.message)
+                showErrorMessage(errorType.message ?: getString(errorType.resId))
             }
 
             is ErrorType.InputError -> {
-                showErrorMessage(errorType.message)
+                showErrorMessage(getString(errorType.resId))
             }
 
             is ErrorType.GenericError -> {
-                showErrorMessage(
-                    errorType.exception.message
-                        ?: R.string.error_message_unexpected_error.getString()
-                )
+                showErrorMessage(errorType.message ?: getString(errorType.resId))
             }
             is ErrorType.InternetError -> {
-                showErrorMessage(errorType.message)
+                showErrorMessage(getString(errorType.resId))
             }
         }
     }

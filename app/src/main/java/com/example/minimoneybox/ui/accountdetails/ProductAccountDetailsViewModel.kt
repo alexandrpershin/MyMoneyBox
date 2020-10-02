@@ -6,13 +6,12 @@ import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.TaskResult
-import com.example.minimoneybox.extensions.getString
 import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.ui.BaseViewModel
 import com.example.minimoneybox.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
-class AccountDetailsViewModel(
+class ProductAccountDetailsViewModel(
     private val productId: Int,
     private val productsRepository: InvestorProductsRepository
 ) : BaseViewModel() {
@@ -21,10 +20,11 @@ class AccountDetailsViewModel(
     val playAnimationLiveData: LiveData<Boolean>
         get() = _playAnimationLiveData
 
-    fun getInvestorProductModel() = productsRepository.getUserAccountsLiveData().switchMap { data ->
-        val result = data.products.find { it.id == productId }
-        return@switchMap MutableLiveData(result)
-    }
+    fun getInvestorProductModel() =
+        productsRepository.getInvestorProductLiveData().switchMap { data ->
+            val result = data.productAccounts.find { it.id == productId }
+            return@switchMap MutableLiveData(result)
+        }
 
     fun addMoneyToMoneyBox(amount: Int) {
         viewModelScope.launch {
@@ -39,7 +39,7 @@ class AccountDetailsViewModel(
                 }
                 is TaskResult.SuccessResult -> {
                     hideLoading()
-                    showSnackBar(R.string.message_payment_success.getString())
+                    showSnackBar(R.string.message_payment_success)
                     updateProductInDb(response.data.amount)
                 }
             }
@@ -48,12 +48,15 @@ class AccountDetailsViewModel(
 
     private fun updateProductInDb(amount: Double) {
         viewModelScope.launch {
-            val userProduct = productsRepository.getUserAccounts()
-            val result = userProduct.products.find { it.id == productId }
-            result?.moneybox = amount
+            val product = productsRepository.getInvestorProductFromDb()
+            val result = product.productAccounts.find { it.id == productId }
 
-            productsRepository.saveUserAccounts(userProduct)
-            _playAnimationLiveData.value = true
+            result?.let {
+                result.moneybox = amount
+                productsRepository.saveInvestorProductToDb(product)
+                _playAnimationLiveData.value = true
+            }
+
         }
     }
 

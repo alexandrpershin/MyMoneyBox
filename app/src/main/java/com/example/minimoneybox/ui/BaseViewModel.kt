@@ -1,6 +1,7 @@
 package com.example.minimoneybox.ui
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import androidx.annotation.UiThread
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
@@ -26,7 +27,7 @@ abstract class BaseViewModel : ViewModel() {
     val forceKeyboardState
         get() = _forceKeyboardState
 
-    private val _showSnackBar: SingleLiveEvent<String> = SingleLiveEvent()
+    private val _showSnackBar: SingleLiveEvent<Int> = SingleLiveEvent()
     val showSnackBar
         get() = _showSnackBar
 
@@ -60,7 +61,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     @UiThread
-    fun showSnackBar(message: String) {
+    fun showSnackBar(@StringRes message: Int) {
         _showSnackBar.value = message
     }
 

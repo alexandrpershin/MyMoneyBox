@@ -4,7 +4,6 @@ package com.example.minimoneybox.api
 import android.util.Log
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.response.CommonServerErrorResponse
-import com.example.minimoneybox.extensions.getString
 import com.google.gson.Gson
 import kotlinx.coroutines.Deferred
 import okhttp3.ResponseBody
@@ -27,9 +26,9 @@ suspend fun <T> executeAsyncRequest(request: Deferred<Response<T>>): TaskResult<
     } catch (ex: Exception) {
         Log.d(TAG, "Exception message: ${ex.message}")
         if (ex is UnknownHostException) {
-            TaskResult.ErrorResult(ErrorType.InternetError(R.string.message_internet_error.getString()))
+            TaskResult.ErrorResult(ErrorType.InternetError(R.string.message_internet_error))
         } else {
-            TaskResult.ErrorResult(ErrorType.GenericError(exception = ex))
+            TaskResult.ErrorResult(ErrorType.GenericError(message = ex.localizedMessage))
         }
     }
 }
@@ -48,9 +47,9 @@ private fun <T> parseBackendError(result: Response<T>): TaskResult<T> {
         }
 
         CODE_INTERNAL_SERVER_ERROR -> {
-            TaskResult.ErrorResult(ErrorType.GenericError(Exception(R.string.error_message_internal_server_error.getString())))
+            TaskResult.ErrorResult(ErrorType.GenericError(resId = R.string.error_message_internal_server_error))
         }
-        else -> TaskResult.ErrorResult(ErrorType.GenericError(Exception(R.string.error_message_unexpected_server_error.getString())))
+        else -> TaskResult.ErrorResult(ErrorType.GenericError(resId = R.string.error_message_unexpected_server_error))
     }
 }
 
@@ -58,20 +57,20 @@ private fun <T> handleUnauthorizedError(errorResponse: CommonServerErrorResponse
     return if (errorResponse != null) {
         when (errorResponse.name) {
             KEY_TOKEN_EXPIRED -> { // Can be improved with dedicated error code from backend about token experation
-                TaskResult.ErrorResult(ErrorType.TokenExpired(R.string.error_message_token_expired.getString()))
+                TaskResult.ErrorResult(ErrorType.TokenExpired(resId = R.string.error_message_session_expired))
             }
             else -> TaskResult.ErrorResult(ErrorType.LoginError(message = errorResponse.message))
         }
     } else {
-        TaskResult.ErrorResult(ErrorType.LoginError(R.string.error_message_wrong_credentials.getString()))
+        TaskResult.ErrorResult(ErrorType.LoginError(resId = R.string.error_message_wrong_credentials))
     }
 }
 
 private fun <T> handleBadRequestError(errorResponse: CommonServerErrorResponse?): TaskResult<T> {
-    return if (errorResponse != null ) {
-        TaskResult.ErrorResult(ErrorType.GenericError(Exception(errorResponse.name)))
+    return if (errorResponse != null) {
+        TaskResult.ErrorResult(ErrorType.GenericError(message = errorResponse.name))
     } else {
-        TaskResult.ErrorResult(ErrorType.GenericError(Exception(R.string.error_message_bad_request.getString())))
+        TaskResult.ErrorResult(ErrorType.GenericError(resId = R.string.error_message_bad_request))
     }
 }
 

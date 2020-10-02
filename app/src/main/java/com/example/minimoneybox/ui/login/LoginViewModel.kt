@@ -1,24 +1,27 @@
 package com.example.minimoneybox.ui.login
 
-import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.api.TaskResult
 import com.example.minimoneybox.api.response.LoginResponse
-import com.example.minimoneybox.extensions.getString
 import com.example.minimoneybox.model.User
 import com.example.minimoneybox.preferences.SecuredSharedPreferences
 import com.example.minimoneybox.repository.AuthRepository
 import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.ui.BaseViewModel
+import com.example.minimoneybox.utils.EmailValidator
 import com.example.minimoneybox.utils.ScreenDirections
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 class LoginViewModel(
     private val preferences: SecuredSharedPreferences,
     private val authRepository: AuthRepository,
-    private val productsRepository: InvestorProductsRepository
+    private val productsRepository: InvestorProductsRepository,
+    private val emailValidator: EmailValidator,
+    private val coroutineContext: CoroutineContext = Dispatchers.Main
 ) : BaseViewModel() {
 
     init {
@@ -31,17 +34,17 @@ class LoginViewModel(
      * */
 
     private fun clearPreviousSaveData() {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineContext) {
             preferences.clear()
             authRepository.deleteUser()
-            productsRepository.deleteUserAccounts()
+            productsRepository.deleteInvestorProductFromDb()
         }
     }
 
     fun logIn(email: String, password: String, userName: String) {
         val valid = isUserInputValid(email, password)
         if (valid) {
-            viewModelScope.launch {
+            viewModelScope.launch(coroutineContext) {
                 showLoading()
 
                 val result: TaskResult<LoginResponse> = authRepository.login(email, password)
@@ -72,17 +75,17 @@ class LoginViewModel(
     private fun isUserInputValid(email: String, password: String): Boolean {
         return when {
             email.isEmpty() -> {
-                notifyError(ErrorType.InputError(R.string.error_empty_email.getString()))
+                notifyError(ErrorType.InputError(R.string.error_empty_email))
                 false
             }
 
-            !Patterns.EMAIL_ADDRESS.toRegex().matches(email) -> {
-                notifyError(ErrorType.InputError(R.string.email_address_error.getString()))
+            !emailValidator.isValid(email) -> {
+                notifyError(ErrorType.InputError(R.string.email_address_error))
                 false
             }
 
             password.isEmpty() -> {
-                notifyError(ErrorType.InputError(R.string.error_empty_password.getString()))
+                notifyError(ErrorType.InputError(R.string.error_empty_password))
                 false
             }
 

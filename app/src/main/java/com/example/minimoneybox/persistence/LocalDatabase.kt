@@ -6,20 +6,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.minimoneybox.model.User
-import com.example.minimoneybox.model.UserAccounts
-import com.example.minimoneybox.persistence.dao.UserAccountsDao
+import com.example.minimoneybox.model.InvestorProduct
+import com.example.minimoneybox.persistence.dao.InvestorProductDao
 import com.example.minimoneybox.persistence.dao.UserDao
 
 @Database(
-    entities = [User::class, UserAccounts::class],
-    version = 5,
+    entities = [User::class, InvestorProduct::class],
+    version = 6,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
-    abstract fun userAccountsDao(): UserAccountsDao
+    abstract fun investorProductDao(): InvestorProductDao
 
     companion object {
         @Volatile

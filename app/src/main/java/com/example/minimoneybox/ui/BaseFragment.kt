@@ -62,7 +62,7 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
         })
 
         viewModel.showSnackBar.observe(viewLifecycleOwner, Observer { message ->
-            showSnackBar(message)
+            showSnackBar(getString(message))
         })
         viewModel.forceKeyboardState.observe(viewLifecycleOwner, Observer
         { keyboardState ->
@@ -80,7 +80,7 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
     private fun handleTokenExpiration(errorType: ErrorType) {
         if (errorType is ErrorType.TokenExpired) {
             viewModel.goFirstScreen(R.id.loginFragment)
-            showErrorMessage(errorType.message)
+            showErrorMessage(getString(errorType.resId))
         }
     }
 

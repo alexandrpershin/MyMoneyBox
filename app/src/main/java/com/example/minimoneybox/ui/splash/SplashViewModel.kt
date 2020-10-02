@@ -4,14 +4,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.minimoneybox.preferences.SecuredSharedPreferences
 import com.example.minimoneybox.ui.BaseViewModel
 import com.example.minimoneybox.utils.ScreenDirections
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 class SplashViewModel(
-    private val preferences: SecuredSharedPreferences,
-    private val coroutineContext: CoroutineContext = Dispatchers.Main
+    private val preferences: SecuredSharedPreferences
 ) : BaseViewModel() {
 
     init {
@@ -19,7 +16,7 @@ class SplashViewModel(
     }
 
     private fun goNext() {
-        viewModelScope.launch(coroutineContext) {
+        viewModelScope.launch {
             delay(SPLASH_TIME_DELAY)
 
             val direction =

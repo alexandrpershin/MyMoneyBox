@@ -16,7 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccountsViewModel>() {
 
-    private val accountsAdapter = UserAccountsAdapter()
+    private lateinit var accountsAdapter : UserAccountsAdapter
 
     override val viewModel: UserAccountsViewModel by viewModel()
 
@@ -28,9 +28,11 @@ class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccou
     override fun initComponents(binding: FragmentUserAccountsBinding) {
         progressBar = binding.partialProgress.progressBar
 
+        accountsAdapter = UserAccountsAdapter(requireContext())
+
         binding.rvAccounts.apply {
             accountsAdapter.onItemClick = { productId ->
-                viewModel.goToAccountDetails(productId)
+                viewModel.goToProductAccountDetails(productId)
             }
             adapter = accountsAdapter
             layoutManager = LinearLayoutManager(requireActivity())
@@ -56,10 +58,10 @@ class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccou
             }
         })
 
-        viewModel.getUserAccounts().observe(viewLifecycleOwner, Observer { data ->
+        viewModel.getInvestorProduct().observe(viewLifecycleOwner, Observer { data ->
             data?.let {
                 with(binding) {
-                    accountsAdapter.updateData(data.products)
+                    accountsAdapter.updateData(data.productAccounts)
                     tvTotalPlanValue.text = getTotalPlanValueMessage(it.totalPlanValue)
                 }
             }
@@ -68,7 +70,7 @@ class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccou
     }
 
     private fun getGreetingMessage(userName: String): SpannableStringBuilder {
-        val greeting = R.string.text_greeting.getString()
+        val greeting = getString(R.string.text_greeting)
         val string = "$greeting $userName!"
         val spannable = SpannableStringBuilder(string)
 
@@ -82,7 +84,7 @@ class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccou
     }
 
     private fun getTotalPlanValueMessage(totalPlanValue: Double): SpannableStringBuilder {
-        val planValueLabel = R.string.text_total_plan_value.getString()
+        val planValueLabel = getString(R.string.text_total_plan_value)
         val planValue = totalPlanValue.parseToString()
         val string = "$planValueLabel $planValue"
         val spannable = SpannableStringBuilder(string)
@@ -100,13 +102,13 @@ class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccou
         when (errorType) {
             is ErrorType.GenericError -> {
                 showErrorMessage(
-                    errorType.exception.message
-                        ?: R.string.error_message_unexpected_error.getString()
+                    errorType.message
+                        ?: getString(R.string.error_message_unexpected_error)
                 )
             }
 
             is ErrorType.InternetError -> {
-                showErrorMessage(errorType.message)
+                showErrorMessage(getString(errorType.resId))
             }
         }
 

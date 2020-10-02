@@ -7,19 +7,18 @@ import androidx.navigation.fragment.navArgs
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.databinding.FragmentAccountDetailsBinding
-import com.example.minimoneybox.extensions.getString
 import com.example.minimoneybox.extensions.playBounceAnimation
 import com.example.minimoneybox.extensions.showErrorMessage
 import com.example.minimoneybox.ui.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class AccountDetailsFragment :
-    BaseFragment<FragmentAccountDetailsBinding, AccountDetailsViewModel>() {
+class ProductAccountDetailsFragment :
+    BaseFragment<FragmentAccountDetailsBinding, ProductAccountDetailsViewModel>() {
 
-    private val args: AccountDetailsFragmentArgs by navArgs()
+    private val args: ProductAccountDetailsFragmentArgs by navArgs()
 
-    override val viewModel: AccountDetailsViewModel by viewModel { parametersOf(args.accountDetailsId) }
+    override val viewModel: ProductAccountDetailsViewModel by viewModel { parametersOf(args.accountDetailsId) }
 
     override fun initBinding(
         inflater: LayoutInflater,
@@ -42,8 +41,8 @@ class AccountDetailsFragment :
         viewModel.getInvestorProductModel().observe(viewLifecycleOwner, Observer { model ->
             model?.let {
                 with(binding) {
-                    tvPlanValue.text = R.string.text_pound_value.getString(model.planValue)
-                    tvMoneybox.text = R.string.text_pound_value.getString(model.moneybox)
+                    tvPlanValue.text = getString(R.string.text_pound_value, model.planValue)
+                    tvMoneybox.text = getString(R.string.text_pound_value, model.moneybox)
                     tvAccountName.text = model.friendlyName
                 }
             }
@@ -56,8 +55,11 @@ class AccountDetailsFragment :
 
     override fun errorHandler(errorType: ErrorType) {
         when (errorType) {
-            is ErrorType.GenericError -> showErrorMessage(errorType.message)
-            is ErrorType.InternetError -> showErrorMessage(errorType.message)
+            is ErrorType.GenericError -> {
+                showErrorMessage(errorType.message ?: getString(errorType.resId))
+            }
+
+            is ErrorType.InternetError -> showErrorMessage(getString(errorType.resId))
         }
     }
 

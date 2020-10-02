@@ -1,7 +1,7 @@
 package com.example.minimoneybox.api
 
+import androidx.annotation.StringRes
 import com.example.minimoneybox.R
-import com.example.minimoneybox.extensions.getString
 
 sealed class TaskResult<out T> {
     data class ErrorResult(val errorType: ErrorType) : TaskResult<Nothing>()
@@ -21,14 +21,17 @@ inline fun <T> TaskResult<T>.doOnError(callback: (ErrorType) -> Unit) {
 }
 
 sealed class ErrorType {
-    data class LoginError(val message: String) : ErrorType()
-    data class TokenExpired(val message: String) : ErrorType()
-    data class GenericError(
-        val exception: Exception,
-        val message: String = exception.localizedMessage
-            ?: R.string.error_message_unexpected_error.getString()
+    data class LoginError(
+        @StringRes val resId: Int = R.string.error_message_unexpected_error,
+        val message: String? = null
     ) : ErrorType()
 
-    data class InternetError(val message: String) : ErrorType()
-    data class InputError(val message: String) : ErrorType()
+    data class TokenExpired(@StringRes val resId: Int) : ErrorType()
+    data class GenericError(
+        @StringRes val resId: Int = R.string.error_message_unexpected_error,
+        val message: String? = null
+    ) : ErrorType()
+
+    data class InternetError(@StringRes val resId: Int) : ErrorType()
+    data class InputError(@StringRes val resId: Int) : ErrorType()
 }

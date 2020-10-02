@@ -15,7 +15,6 @@
     <!--    Lottie files-->
     <string name="lottie_owl_coin_shower">owl_coin_shower.json</string>
 
-
     <string name="error_empty_email">Email is empty</string>
     <string name="error_message_unexpected_error">Unexpected error occurred</string>
     <string name="error_message_wrong_credentials">Entered credentials are wrong</string>
@@ -23,7 +22,7 @@
     <string name="error_message_bad_request">Bad request.</string>
     <string name="error_message_internal_server_error">Internal server error occurred.</string>
     <string name="error_empty_password">Password is empty</string>
-    <string name="error_message_token_expired">Your token has been expired. Please log in again.</string>
+    <string name="error_message_session_expired">Your session has been expired. Please log in again.</string>
     <string name="message_internet_error">Internet connection appears to be offline</string>
 
     <string name="text_greeting">Hello,</string>
@@ -35,6 +34,5 @@
     <string name="label_plan_value">Plan Value:</string>
     <string name="label_moneybox">Moneybox:</string>
     <string name="message_payment_success">Payment successful</string>
-
 
 </resources>

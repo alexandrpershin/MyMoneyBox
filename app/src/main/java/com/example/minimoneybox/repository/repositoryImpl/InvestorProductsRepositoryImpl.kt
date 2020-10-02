@@ -6,9 +6,9 @@ import com.example.minimoneybox.api.executeAsyncRequest
 import com.example.minimoneybox.api.request.ProductPaymentRequest
 import com.example.minimoneybox.api.response.InvestorProductsResponse
 import com.example.minimoneybox.api.response.ProductPaymentResponse
-import com.example.minimoneybox.model.UserAccounts
+import com.example.minimoneybox.model.InvestorProduct
 import com.example.minimoneybox.persistence.LocalDatabase
-import com.example.minimoneybox.persistence.dao.UserAccountsDao
+import com.example.minimoneybox.persistence.dao.InvestorProductDao
 import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.service.InvestorProductsService
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ import kotlin.coroutines.CoroutineContext
 class InvestorProductsRepositoryImpl(
     private val service: InvestorProductsService,
     private val localDatabase: LocalDatabase,
-    private val accountsDao: UserAccountsDao = localDatabase.userAccountsDao(),
+    private val productDao: InvestorProductDao = localDatabase.investorProductDao(),
     private val coroutineContext: CoroutineContext = Dispatchers.Default
 ) :
     InvestorProductsRepository {
@@ -39,21 +39,21 @@ class InvestorProductsRepositoryImpl(
             return@withContext response
         }
 
-    override suspend fun saveUserAccounts(userAccounts: UserAccounts) =
+    override suspend fun saveInvestorProductToDb(investorProduct: InvestorProduct) =
         withContext(coroutineContext) {
-            accountsDao.saveUserAccounts(userAccounts)
+            productDao.saveInvestorProduct(investorProduct)
         }
 
-    override fun getUserAccountsLiveData(): LiveData<UserAccounts> {
-        return accountsDao.getUserAccountsLiveData()
+    override fun getInvestorProductLiveData(): LiveData<InvestorProduct> {
+        return productDao.getInvestorProductLiveData()
     }
 
-    override suspend fun deleteUserAccounts() =
+    override suspend fun deleteInvestorProductFromDb() =
         withContext(coroutineContext) {
-            accountsDao.deleteUserAccounts()
+            productDao.deleteInvestorProduct()
         }
 
-    override suspend fun getUserAccounts(): UserAccounts = withContext(coroutineContext) {
-        return@withContext accountsDao.getUserAccounts()
+    override suspend fun getInvestorProductFromDb(): InvestorProduct = withContext(coroutineContext) {
+        return@withContext productDao.getInvestorProduct()
     }
 }

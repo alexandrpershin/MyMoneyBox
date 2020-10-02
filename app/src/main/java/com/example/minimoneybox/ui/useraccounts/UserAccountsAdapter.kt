@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.minimoneybox.R
 import com.example.minimoneybox.databinding.ItemInvestmentAccountBinding
 import com.example.minimoneybox.extensions.getString
-import com.example.minimoneybox.model.InvestorProductModel
+import com.example.minimoneybox.model.InvestorProduct
 
 typealias OnItemClick = (productId: Int) -> Unit
 
-class UserAccountsAdapter(private val accounts: MutableList<InvestorProductModel> = mutableListOf()) :
+class UserAccountsAdapter(private val accounts: MutableList<InvestorProduct> = mutableListOf()) :
     RecyclerView.Adapter<UserAccountsAdapter.ViewHolder>() {
 
     var onItemClick: OnItemClick? = null
@@ -28,7 +28,7 @@ class UserAccountsAdapter(private val accounts: MutableList<InvestorProductModel
 
     override fun getItemCount(): Int = accounts.size
 
-    fun updateData(products: List<InvestorProductModel>) {
+    fun updateData(products: List<InvestorProduct>) {
         accounts.clear()
         accounts.addAll(products)
 

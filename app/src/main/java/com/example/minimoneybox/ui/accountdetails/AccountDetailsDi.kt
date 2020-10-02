@@ -8,11 +8,7 @@ object AccountDetailsDi {
     fun getModule(): Module {
         return module {
             viewModel { (accountDetailsId: Int) ->
-                AccountDetailsViewModel(
-                    accountDetailsId,
-                    get(),
-                    get()
-                )
+                AccountDetailsViewModel(accountDetailsId, get())
             }
         }
     }

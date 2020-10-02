@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.TaskResult
 import com.example.minimoneybox.extensions.getString
-import com.example.minimoneybox.repository.AuthRepository
 import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.ui.BaseViewModel
 import com.example.minimoneybox.utils.SingleLiveEvent
@@ -15,7 +14,6 @@ import kotlinx.coroutines.launch
 
 class AccountDetailsViewModel(
     private val productId: Int,
-    private val authRepository: AuthRepository,
     private val productsRepository: InvestorProductsRepository
 ) : BaseViewModel() {
 
@@ -23,8 +21,8 @@ class AccountDetailsViewModel(
     val playAnimationLiveData: LiveData<Boolean>
         get() = _playAnimationLiveData
 
-    fun getInvestorProductModel() = authRepository.getUserLiveData().switchMap { user ->
-        val result = user.accountModel!!.products.find { it.id == productId }!!
+    fun getInvestorProductModel() = productsRepository.getUserAccountsLiveData().switchMap { data ->
+        val result = data.products.find { it.id == productId }
         return@switchMap MutableLiveData(result)
     }
 
@@ -50,11 +48,11 @@ class AccountDetailsViewModel(
 
     private fun updateProductInDb(amount: Double) {
         viewModelScope.launch {
-            val user = authRepository.getUser()
-            val result = user.accountModel!!.products.find { it.id == productId }!!
-            result.moneybox = amount
+            val userProduct = productsRepository.getUserAccounts()
+            val result = userProduct.products.find { it.id == productId }
+            result?.moneybox = amount
 
-            authRepository.updateUserToDb(user)
+            productsRepository.saveUserAccounts(userProduct)
             _playAnimationLiveData.value = true
         }
     }

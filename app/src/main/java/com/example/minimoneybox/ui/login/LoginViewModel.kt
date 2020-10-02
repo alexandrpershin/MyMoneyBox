@@ -7,16 +7,18 @@ import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.api.TaskResult
 import com.example.minimoneybox.api.response.LoginResponse
 import com.example.minimoneybox.extensions.getString
-import com.example.minimoneybox.model.UserModel
+import com.example.minimoneybox.model.User
 import com.example.minimoneybox.preferences.SecuredSharedPreferences
 import com.example.minimoneybox.repository.AuthRepository
+import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.ui.BaseViewModel
 import com.example.minimoneybox.utils.ScreenDirections
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val preferences: SecuredSharedPreferences,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val productsRepository: InvestorProductsRepository
 ) : BaseViewModel() {
 
     init {
@@ -32,6 +34,7 @@ class LoginViewModel(
         viewModelScope.launch {
             preferences.clear()
             authRepository.deleteUser()
+            productsRepository.deleteUserAccounts()
         }
     }
 
@@ -50,7 +53,7 @@ class LoginViewModel(
                         preferences.isLoggedIn = true
                         preferences.token = result.data.session.bearerToken
 
-                        val newUser = UserModel(userName = userName)
+                        val newUser = User(userName = userName)
                         authRepository.saveNewUserToDb(newUser)
 
                         goFirstScreen(ScreenDirections.USER_ACCOUNTS_FRAGMENT)

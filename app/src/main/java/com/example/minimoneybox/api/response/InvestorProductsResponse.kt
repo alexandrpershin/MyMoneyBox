@@ -1,7 +1,7 @@
 package com.example.minimoneybox.api.response
 
-import com.example.minimoneybox.model.InvestorProductModel
-import com.example.minimoneybox.model.UserAccountsModel
+import com.example.minimoneybox.model.InvestorProduct
+import com.example.minimoneybox.model.UserAccounts
 import com.google.gson.annotations.SerializedName
 
 data class InvestorProductsResponse(
@@ -21,10 +21,10 @@ data class Product(
     @SerializedName("Name") val name: String
 )
 
-fun InvestorProductsResponse.toUserAccountsModel(): UserAccountsModel {
+fun InvestorProductsResponse.toUserAccountsModel(): UserAccounts {
     val products = productResponses
         .map {
-            InvestorProductModel(
+            InvestorProduct(
                 id = it.id,
                 planValue = it.planValue,
                 moneybox = it.moneybox,
@@ -33,7 +33,7 @@ fun InvestorProductsResponse.toUserAccountsModel(): UserAccountsModel {
             )
         }
 
-    return UserAccountsModel(
+    return UserAccounts(
         totalPlanValue = totalPlanValue,
         products = products
 

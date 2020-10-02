@@ -29,7 +29,7 @@ class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccou
         progressBar = binding.partialProgress.progressBar
 
         binding.rvAccounts.apply {
-            accountsAdapter.onItemClick = {productId ->
+            accountsAdapter.onItemClick = { productId ->
                 viewModel.goToAccountDetails(productId)
             }
             adapter = accountsAdapter
@@ -47,42 +47,45 @@ class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccou
     }
 
     override fun addObservers(binding: FragmentUserAccountsBinding) {
-        viewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->
-            if (userModel != null) {
+        viewModel.getUser().observe(viewLifecycleOwner, Observer { user ->
+            if (user != null && user.userName.isNotEmpty()) {
                 with(binding) {
-                    userModel.accountModel?.let {
-                        accountsAdapter.updateData(it.products)
-                        tvTotalPlanValue.text =
-                            getTotalPlanValueMessage(userModel.userName, it.totalPlanValue)
-                    }
+                    tvGreeting.text =
+                        getGreetingMessage(user.userName).also { tvGreeting.makeVisible() }
                 }
             }
         })
+
+        viewModel.getUserAccounts().observe(viewLifecycleOwner, Observer { data ->
+            data?.let {
+                with(binding) {
+                    accountsAdapter.updateData(data.products)
+                    tvTotalPlanValue.text = getTotalPlanValueMessage(it.totalPlanValue)
+                }
+            }
+        })
+
     }
 
-    private fun getTotalPlanValueMessage(
-        userName: String,
-        totalPlanValue: Double
-    ): SpannableStringBuilder {
+    private fun getGreetingMessage(userName: String): SpannableStringBuilder {
         val greeting = R.string.text_greeting.getString()
-        val planValueLabel = R.string.text_total_plan_value.getString()
-        val planValue = totalPlanValue.parseToString()
-
-        val string = if (userName.isNotEmpty()) {
-            "$greeting $userName! $planValueLabel $planValue"
-        } else {
-            "$planValueLabel $planValue"
-        }
-
+        val string = "$greeting $userName!"
         val spannable = SpannableStringBuilder(string)
 
-        if (userName.isNotEmpty()) {
-            spannable.setSpan(
-                ForegroundColorSpan(R.color.shakespeare.getColor()),
-                greeting.length, greeting.length + userName.length + 1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-        }
+        spannable.setSpan(
+            ForegroundColorSpan(R.color.shakespeare.getColor()),
+            greeting.length, greeting.length + userName.length + 1,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        return spannable
+    }
+
+    private fun getTotalPlanValueMessage(totalPlanValue: Double): SpannableStringBuilder {
+        val planValueLabel = R.string.text_total_plan_value.getString()
+        val planValue = totalPlanValue.parseToString()
+        val string = "$planValueLabel $planValue"
+        val spannable = SpannableStringBuilder(string)
 
         spannable.setSpan(
             ForegroundColorSpan(R.color.shakespeare.getColor()),

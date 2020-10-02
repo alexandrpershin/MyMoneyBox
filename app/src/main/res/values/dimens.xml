@@ -6,6 +6,7 @@
     <dimen name="line_height_button_primary">20sp</dimen>
     <dimen name="margin_default">16dp</dimen>
 
+    <dimen name="margin_tiny">1dp</dimen>
     <dimen name="margin_little">5dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
@@ -25,6 +26,8 @@
     <dimen name="list_item_spacing_half">8dp</dimen>
 
     <dimen name="screen_title_text_size">24sp</dimen>
+
+    <dimen name="greeting_text_max_length">150dp</dimen>
 
 
     <dimen name="actionBarSizeAndCurrentDateView">98dp</dimen>

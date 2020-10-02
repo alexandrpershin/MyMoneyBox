@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -116,9 +117,12 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
 
     private fun closeKeyboard() {
         activity?.let { safeActivity ->
-            val imm: InputMethodManager =
-                safeActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+            val view = safeActivity.currentFocus
+            view?.let { v ->
+                val imm =
+                    safeActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                imm?.hideSoftInputFromWindow(v.windowToken, 0)
+            }
         }
     }
 

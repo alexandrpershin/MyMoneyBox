@@ -1,7 +1,6 @@
 package com.example.minimoneybox.ui.useraccounts
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.minimoneybox.api.TaskResult
 import com.example.minimoneybox.api.response.toUserAccountsModel
@@ -24,7 +23,7 @@ class UserAccountsViewModel(
     fun fetchInvestorProductsFromServer() {
         viewModelScope.launch {
             showLoading()
-            val result = productsRepository.getProducts()
+            val result = productsRepository.getProductsFromServer()
 
             when (result) {
                 is TaskResult.ErrorResult -> {
@@ -33,16 +32,16 @@ class UserAccountsViewModel(
                 }
                 is TaskResult.SuccessResult -> {
                     hideLoading()
-                    val latestAccountModel = result.data.toUserAccountsModel()
-                    val user = authRepository.getUser()
-                    user.accountModel = latestAccountModel
-                    authRepository.updateUserToDb(user)
+                    val userAccounts = result.data.toUserAccountsModel()
+                    productsRepository.saveUserAccounts(userAccounts)
                 }
             }
         }
     }
 
     fun getUser() = authRepository.getUserLiveData()
+
+    fun getUserAccounts() = productsRepository.getUserAccountsLiveData()
 
     fun goToAccountDetails(productId: Int) {
         val bundle = Bundle()

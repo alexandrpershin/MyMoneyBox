@@ -29,7 +29,7 @@ val appModule: Module = module {
 
     //Repository
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
-    single<InvestorProductsRepository> { InvestorProductsRepositoryImpl(get()) }
+    single<InvestorProductsRepository> { InvestorProductsRepositoryImpl(get(), get()) }
 
     //API service
     single<AuthService> { createApiService<AuthService>(get()) }

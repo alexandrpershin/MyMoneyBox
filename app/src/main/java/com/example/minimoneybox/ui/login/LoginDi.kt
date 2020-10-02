@@ -7,7 +7,7 @@ import org.koin.dsl.module
 object LoginDi {
     fun getModule(): Module {
         return module {
-            viewModel { LoginViewModel(get(), get()) }
+            viewModel { LoginViewModel(get(), get(), get()) }
         }
     }
 

@@ -40,10 +40,12 @@ class AccountDetailsFragment :
 
     override fun addObservers(binding: FragmentAccountDetailsBinding) {
         viewModel.getInvestorProductModel().observe(viewLifecycleOwner, Observer { model ->
-            with(binding) {
-                tvPlanValue.text = R.string.text_pound_value.getString(model.planValue)
-                tvMoneybox.text = R.string.text_pound_value.getString(model.moneybox)
-                tvAccountName.text = model.friendlyName
+            model?.let {
+                with(binding) {
+                    tvPlanValue.text = R.string.text_pound_value.getString(model.planValue)
+                    tvMoneybox.text = R.string.text_pound_value.getString(model.moneybox)
+                    tvAccountName.text = model.friendlyName
+                }
             }
         })
 

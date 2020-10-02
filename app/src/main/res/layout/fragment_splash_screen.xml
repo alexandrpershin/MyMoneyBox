@@ -10,10 +10,10 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="@dimen/margin_large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="@dimen/margin_large"
         android:src="@drawable/moneybox_logo"
         app:layout_constraintTop_toTopOf="@id/glTop"
         app:layout_constraintBottom_toBottomOf="@id/glTop"

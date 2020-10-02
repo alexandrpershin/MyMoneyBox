@@ -9,10 +9,10 @@ fun @receiver:ColorRes Int.getColor(): Int {
     return ContextCompat.getColor(MoneyboxApplication.instance, this)
 }
 
-//fun @receiver:StringRes Int.getString(): String {
-//    return MoneyboxApplication.instance.getString(this)
-//}
+fun @receiver:StringRes Int.getString(): String {
+    return MoneyboxApplication.instance.getString(this)
+}
 
-//fun @receiver:StringRes Int.getString(vararg formatArgs: Any): String {
-//    return MoneyboxApplication.instance.getString(this, *formatArgs)
-//}
+fun @receiver:StringRes Int.getString(vararg formatArgs: Any): String {
+    return MoneyboxApplication.instance.getString(this, *formatArgs)
+}

@@ -36,7 +36,10 @@ class BackendApiFactory {
         return HeaderInterceptor(securedPreferences)
     }
 
-    fun provideRetrofit(application: Context, securedPreferences: SecuredSharedPreferences): Retrofit {
+    fun provideRetrofit(
+        application: Context,
+        securedPreferences: SecuredSharedPreferences
+    ): Retrofit {
         val retrofit =
             Retrofit.Builder()
                 .addConverterFactory(gsonFactory)
@@ -52,13 +55,18 @@ class BackendApiFactory {
         application: Context,
         securedPreferences: SecuredSharedPreferences
     ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .connectTimeout(150, TimeUnit.SECONDS)
-            .readTimeout(150, TimeUnit.SECONDS)
-            .addInterceptor(provideHeaderInterceptor(securedPreferences))
-            .addInterceptor(ChuckerInterceptor(application))
-            .addInterceptor(provideHttpLoggingInterceptor())
-            .build()
+        return OkHttpClient.Builder().apply {
+            connectTimeout(150, TimeUnit.SECONDS)
+            readTimeout(150, TimeUnit.SECONDS)
+
+            if (BuildConfig.DEBUG) addInterceptor(ChuckerInterceptor(application))
+            if (BuildConfig.IS_MOCK) {
+                addInterceptor(MockInterceptor())
+            } else {
+                addInterceptor(provideHttpLoggingInterceptor())
+                addInterceptor(provideHeaderInterceptor(securedPreferences))
+            }
+        }.build()
     }
 
     companion object {

@@ -69,17 +69,6 @@ class UserAccountsViewModelTest {
     }
 
     @Test
-    fun test_show_loading_on_init() {
-        val expectedValue = true
-
-        val captor = ArgumentCaptor.forClass(Boolean::class.java)
-        captor.run {
-            verify(loadingObserver, Mockito.times(1)).onChanged(capture())
-            Assert.assertEquals(expectedValue, value)
-        }
-    }
-
-    @Test
     fun test_hide_loading_on_success() {
         val expectedValue = false
 

@@ -32,6 +32,22 @@ android {
 
     viewBinding.enabled = true
 
+    flavorDimensions "default"
+
+    productFlavors {
+        live {
+            applicationId "com.example.minimoneybox.live"
+            resValue "string", "app_name", "Live"
+            buildConfigField 'boolean', 'IS_MOCK', 'false'
+        }
+
+        mock {
+            applicationId "com.example.minimoneybox.mock"
+            resValue "string", "app_name", "Mock"
+            buildConfigField 'boolean', 'IS_MOCK', 'true'
+        }
+    }
+
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8

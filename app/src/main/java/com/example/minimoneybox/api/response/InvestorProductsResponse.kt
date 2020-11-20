@@ -1,24 +1,23 @@
 package com.example.minimoneybox.api.response
 
-import com.example.minimoneybox.model.ProductAccount
 import com.example.minimoneybox.model.InvestorProduct
-import com.google.gson.annotations.SerializedName
+import com.example.minimoneybox.model.ProductAccount
 
 data class InvestorProductsResponse(
-    @SerializedName("ProductResponses") val productResponses: List<ProductResponse> = arrayListOf(),
-    @SerializedName("TotalPlanValue") val totalPlanValue: Double = 0.0
+    val productResponses: List<ProductResponse> = arrayListOf(),
+    val totalPlanValue: Double = 0.0
 )
 
 data class ProductResponse(
-    @SerializedName("Id") val id: Int = 0,
-    @SerializedName("Moneybox") val moneybox: Double = 0.0,
-    @SerializedName("PlanValue") val planValue: Double = 0.0,
-    @SerializedName("Product") val product: Product = Product()
+    val id: Int = 0,
+    val moneybox: Double = 0.0,
+    val planValue: Double = 0.0,
+    val product: Product = Product()
 )
 
 data class Product(
-    @SerializedName("FriendlyName") val friendlyName: String = "",
-    @SerializedName("Name") val name: String = ""
+    val friendlyName: String = "",
+    val name: String = ""
 )
 
 fun InvestorProductsResponse.toInvestorProductModel(): InvestorProduct {

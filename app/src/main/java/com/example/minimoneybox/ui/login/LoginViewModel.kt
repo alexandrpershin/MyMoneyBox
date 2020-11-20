@@ -54,7 +54,7 @@ class LoginViewModel(
                         hideSoftKeyboard()
                         hideLoading()
                         preferences.isLoggedIn = true
-                        preferences.token = result.data.session.bearerToken
+                        preferences.token = result.data.session.token
 
                         val newUser = User(userName = userName)
                         authRepository.saveNewUserToDb(newUser)

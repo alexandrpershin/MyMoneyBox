@@ -8,17 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.extensions.setVisible
 import com.example.minimoneybox.extensions.showErrorMessage
-import com.example.minimoneybox.extensions.showSnackBar
+import com.example.minimoneybox.extensions.showInfoMessage
+import com.example.minimoneybox.extensions.showSuccessMessage
 import com.example.minimoneybox.utils.NavigationCommand
 
 
@@ -30,7 +29,9 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
 
     abstract val viewModel: VM
 
-    protected open var progressBar: ProgressBar? = null
+    private val progressBar: ProgressBar? by lazy {
+        binding?.root?.findViewById<ProgressBar>(R.id.progressBar)
+    }
 
     abstract fun initBinding(
         inflater: LayoutInflater,
@@ -61,8 +62,18 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
             progressBar?.setVisible(visible)
         })
 
-        viewModel.showSnackBar.observe(viewLifecycleOwner, Observer { message ->
-            showSnackBar(getString(message))
+        viewModel.messageNotifier.observe(viewLifecycleOwner, Observer { messageType ->
+            when (messageType) {
+                is MessageType.Success -> {
+                    showSuccessMessage(messageType.message ?: getString(messageType.resId))
+                }
+                is MessageType.Error -> {
+                    showErrorMessage(messageType.message ?: getString(messageType.resId))
+                }
+                is MessageType.Info -> {
+                    showInfoMessage(messageType.message ?: getString(messageType.resId))
+                }
+            }
         })
         viewModel.forceKeyboardState.observe(viewLifecycleOwner, Observer
         { keyboardState ->
@@ -79,7 +90,7 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
 
     private fun handleTokenExpiration(errorType: ErrorType) {
         if (errorType is ErrorType.TokenExpired) {
-            viewModel.goFirstScreen(R.id.loginFragment)
+            viewModel.resetGraph(R.navigation.auth_nav_graph)
             showErrorMessage(getString(errorType.resId))
         }
     }
@@ -102,12 +113,10 @@ abstract class BaseFragment<DB : ViewBinding, VM : BaseViewModel> :
                 is NavigationCommand.WithArgs -> {
                     findNavController().navigate(command.destinationId, command.args)
                 }
-                is NavigationCommand.FirstOpen -> {
-                    val navHostFragment: NavHostFragment =
-                        requireActivity().supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
-                    val inflater = navHostFragment.navController.navInflater
-                    val graph = inflater.inflate(R.navigation.main_nav_graph)
-                    graph.startDestination = command.startDestination
+                is NavigationCommand.ResetGraph -> {
+                    val inflater = findNavController().navInflater
+
+                    val graph = inflater.inflate(command.newGraphId)
                     findNavController().graph = graph
                 }
             }

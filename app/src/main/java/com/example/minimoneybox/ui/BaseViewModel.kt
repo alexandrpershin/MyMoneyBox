@@ -27,9 +27,9 @@ abstract class BaseViewModel : ViewModel() {
     val forceKeyboardState
         get() = _forceKeyboardState
 
-    private val _showSnackBar: SingleLiveEvent<Int> = SingleLiveEvent()
-    val showSnackBar
-        get() = _showSnackBar
+    private val _messageNotifier: SingleLiveEvent<MessageType> = SingleLiveEvent()
+    val messageNotifier
+        get() = _messageNotifier
 
     @UiThread
     fun goTo(direction: NavDirections) {
@@ -40,9 +40,9 @@ abstract class BaseViewModel : ViewModel() {
         _navigation.value = NavigationCommand.WithArgs(destinationId, args)
     }
 
-    @UiThread
-    fun goFirstScreen(startDestination: Int) {
-        _navigation.value = NavigationCommand.FirstOpen(startDestination)
+
+    fun resetGraph(newGraphId: Int) {
+        _navigation.value = NavigationCommand.ResetGraph(newGraphId)
     }
 
     @UiThread
@@ -61,8 +61,8 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     @UiThread
-    fun showSnackBar(@StringRes message: Int) {
-        _showSnackBar.value = message
+    fun showMessage(messageType: MessageType) {
+        _messageNotifier.value = messageType
     }
 
     @UiThread
@@ -75,4 +75,13 @@ abstract class BaseViewModel : ViewModel() {
 sealed class KeyboardState {
     object Hide : KeyboardState()
     object Show : KeyboardState()
+}
+
+sealed class MessageType(
+    @StringRes val resId: Int,
+    val message: String? = null
+) {
+    class Success(resId: Int, message: String? = null) : MessageType(resId, message)
+    class Error(resId: Int, message: String? = null) : MessageType(resId, message)
+    class Info(resId: Int, message: String? = null) : MessageType(resId, message)
 }

@@ -5,7 +5,7 @@ import androidx.navigation.NavDirections
 
 sealed class NavigationCommand {
     data class To(val directions: NavDirections) : NavigationCommand()
-    data class FirstOpen(val startDestination: Int) : NavigationCommand()
+    data class ResetGraph(val newGraphId: Int) : NavigationCommand()
     object Back : NavigationCommand()
     data class BackTo(val destinationId: Int) : NavigationCommand()
     data class WithArgs(

@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/margin_normal"
+                app:endIconMode="clear_text"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
+                app:endIconMode="clear_text"
                 android:layout_marginTop="@dimen/margin_default"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 app:layout_constraintTop_toBottomOf="@id/tilPassword">
@@ -122,8 +124,6 @@
 
     </ScrollView>
 
-    <include
-        android:id="@+id/partialProgress"
-        layout="@layout/partial_progress" />
+    <include layout="@layout/partial_progress" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

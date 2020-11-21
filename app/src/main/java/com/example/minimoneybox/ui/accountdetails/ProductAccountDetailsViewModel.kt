@@ -8,6 +8,7 @@ import com.example.minimoneybox.R
 import com.example.minimoneybox.api.TaskResult
 import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.ui.BaseViewModel
+import com.example.minimoneybox.ui.MessageType
 import com.example.minimoneybox.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
@@ -39,7 +40,7 @@ class ProductAccountDetailsViewModel(
                 }
                 is TaskResult.SuccessResult -> {
                     hideLoading()
-                    showSnackBar(R.string.message_payment_success)
+                    showMessage(MessageType.Success(R.string.message_payment_success))
                     updateProductInDb(response.data.amount)
                 }
             }

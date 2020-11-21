@@ -27,7 +27,6 @@ class ProductAccountDetailsFragment :
         FragmentAccountDetailsBinding.inflate(inflater, container, false)
 
     override fun initComponents(binding: FragmentAccountDetailsBinding) {
-        progressBar = binding.partialProgress.progressBar
     }
 
     override fun addListeners(binding: FragmentAccountDetailsBinding) {

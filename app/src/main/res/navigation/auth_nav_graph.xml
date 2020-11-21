@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.minimoneybox.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/loginFragmentToMainGraph"
+            app:destination="@id/main_nav_graph"
+            app:enterAnim="@anim/swipe_from_right"
+            app:exitAnim="@anim/swipe_to_left"
+            app:popEnterAnim="@anim/swipe_from_left"
+            app:popExitAnim="@anim/swipe_to_right"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <include app:graph="@navigation/main_nav_graph" />
+
+
+</navigation>

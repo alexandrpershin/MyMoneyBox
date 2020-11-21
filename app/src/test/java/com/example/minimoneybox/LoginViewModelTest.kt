@@ -9,7 +9,7 @@ import com.example.minimoneybox.preferences.SecuredSharedPreferences
 import com.example.minimoneybox.repository.AuthRepository
 import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.ui.login.LoginViewModel
-import com.example.minimoneybox.utils.EmailValidator
+import com.example.minimoneybox.utils.textvalidator.EmailValidator
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.test.TestCoroutineDispatcher

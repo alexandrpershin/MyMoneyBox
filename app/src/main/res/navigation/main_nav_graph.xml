@@ -3,34 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/splashFragment">
-
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.example.minimoneybox.ui.splash.SplashScreenFragment"
-        android:label="SplashScreenFragment"
-        tools:layout="@layout/fragment_splash_screen"
-        >
-
-        <action
-            android:id="@+id/fromSplashFragmentToLoginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/fromSplashFragmentToUserAccountsFragment"
-            app:destination="@id/userAccountsFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.minimoneybox.ui.login.LoginFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/fragment_login">
-
-        <action
-            android:id="@+id/fromLoginFragmentToUserAccountsFragment"
-            app:destination="@id/userAccountsFragment" />
-    </fragment>
-
+    app:startDestination="@id/userAccountsFragment">
 
     <fragment
         android:id="@+id/userAccountsFragment"
@@ -38,8 +11,12 @@
         android:label="UserAccountsFragment"
         tools:layout="@layout/fragment_user_accounts">
         <action
-            android:id="@+id/fromUserAccountsFragmentToAccountDetailsFragment"
-            app:destination="@id/productAccountDetailsFragment" />
+            android:id="@+id/toAccountDetailsFragment"
+            app:destination="@id/productAccountDetailsFragment"
+            app:enterAnim="@anim/swipe_from_right"
+            app:exitAnim="@anim/swipe_to_left"
+            app:popEnterAnim="@anim/swipe_from_left"
+            app:popExitAnim="@anim/swipe_to_right" />
     </fragment>
 
 

@@ -3,12 +3,12 @@ package com.example.minimoneybox.ui.splash
 import androidx.lifecycle.viewModelScope
 import com.example.minimoneybox.preferences.SecuredSharedPreferences
 import com.example.minimoneybox.ui.BaseViewModel
-import com.example.minimoneybox.utils.ScreenDirections
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    private val preferences: SecuredSharedPreferences
+    private val preferences: SecuredSharedPreferences,
+    private val timeDelay: Long = SPLASH_TIME_DELAY
 ) : BaseViewModel() {
 
     init {
@@ -17,16 +17,16 @@ class SplashViewModel(
 
     private fun goNext() {
         viewModelScope.launch {
-            delay(SPLASH_TIME_DELAY)
+            delay(timeDelay)
 
             val direction =
                 if (preferences.isLoggedIn) {
-                    ScreenDirections.USER_ACCOUNTS_FRAGMENT
+                    SplashScreenFragmentDirections.splashFragmentToMainGraph()
                 } else {
-                    ScreenDirections.LOGIN_FRAGMENT
+                    SplashScreenFragmentDirections.splashFragmentToAuthGraph()
                 }
 
-            goFirstScreen(direction)
+            goTo(direction)
         }
     }
 

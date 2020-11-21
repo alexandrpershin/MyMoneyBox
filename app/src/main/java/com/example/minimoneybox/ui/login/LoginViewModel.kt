@@ -10,8 +10,7 @@ import com.example.minimoneybox.preferences.SecuredSharedPreferences
 import com.example.minimoneybox.repository.AuthRepository
 import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.ui.BaseViewModel
-import com.example.minimoneybox.utils.EmailValidator
-import com.example.minimoneybox.utils.ScreenDirections
+import com.example.minimoneybox.utils.textvalidator.EmailValidator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
@@ -59,7 +58,7 @@ class LoginViewModel(
                         val newUser = User(userName = userName)
                         authRepository.saveNewUserToDb(newUser)
 
-                        goFirstScreen(ScreenDirections.USER_ACCOUNTS_FRAGMENT)
+                        goTo(LoginFragmentDirections.loginFragmentToMainGraph())
                     }
                     is TaskResult.ErrorResult -> {
                         hideSoftKeyboard()

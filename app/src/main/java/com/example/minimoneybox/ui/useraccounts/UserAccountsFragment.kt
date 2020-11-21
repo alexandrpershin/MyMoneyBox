@@ -26,13 +26,12 @@ class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccou
     ): FragmentUserAccountsBinding = FragmentUserAccountsBinding.inflate(inflater, container, false)
 
     override fun initComponents(binding: FragmentUserAccountsBinding) {
-        progressBar = binding.partialProgress.progressBar
 
         accountsAdapter = UserAccountsAdapter(requireContext())
 
         binding.rvAccounts.apply {
             accountsAdapter.onItemClick = { productId ->
-                viewModel.goToProductAccountDetails(productId)
+                viewModel.goTo(UserAccountsFragmentDirections.toAccountDetailsFragment(productId))
             }
             adapter = accountsAdapter
             layoutManager = LinearLayoutManager(requireActivity())

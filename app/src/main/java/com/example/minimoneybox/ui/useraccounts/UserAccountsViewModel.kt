@@ -10,7 +10,6 @@ import com.example.minimoneybox.model.User
 import com.example.minimoneybox.repository.AuthRepository
 import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.ui.BaseViewModel
-import com.example.minimoneybox.utils.ScreenDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
@@ -49,15 +48,5 @@ class UserAccountsViewModel(
 
     fun getInvestorProduct(): LiveData<InvestorProduct> =
         productsRepository.getInvestorProductLiveData()
-
-    fun goToProductAccountDetails(productId: Int) {
-        val bundle = Bundle()
-        bundle.putInt(KEY_ACCOUNT_DETAILS_ID, productId)
-        goToWithArgs(ScreenDirections.PRODUCT_ACCOUNT_DETAILS_FRAGMENT, bundle)
-    }
-
-    companion object {
-        const val KEY_ACCOUNT_DETAILS_ID = "account_details_id"
-    }
 
 }

@@ -15,6 +15,11 @@
     <string name="lottie_owl_coin_shower">owl_coin_shower.json</string>
 
     <string name="error_empty_email">Email is empty</string>
+    <string name="error_required_field">Required field</string>
+    <string name="error_password_short">The password must be at least 8 characters in length</string>
+    <string name="error_password_need_lower_letter">The password must have at least 1 lower letter</string>
+    <string name="error_password_need_upper_letter">The password must have at least 1 upper letter</string>
+    <string name="error_password_need_upper_digit">The password must have at least 1 digit</string>
     <string name="error_message_unexpected_error">Unexpected error occurred</string>
     <string name="error_message_wrong_credentials">Entered credentials are wrong</string>
     <string name="error_message_unexpected_server_error">Unexpected server error occurred.</string>

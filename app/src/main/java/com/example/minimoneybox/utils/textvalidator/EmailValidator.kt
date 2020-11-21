@@ -1,4 +1,4 @@
-package com.example.minimoneybox.utils
+package com.example.minimoneybox.utils.textvalidator
 
 import android.util.Patterns
 

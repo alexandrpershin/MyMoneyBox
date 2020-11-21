@@ -1,6 +1,6 @@
 package com.example.minimoneybox.ui.login
 
-import com.example.minimoneybox.utils.EmailValidatorImp
+import com.example.minimoneybox.utils.textvalidator.EmailValidatorImp
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module

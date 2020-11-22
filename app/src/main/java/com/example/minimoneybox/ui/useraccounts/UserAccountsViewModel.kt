@@ -1,6 +1,5 @@
 package com.example.minimoneybox.ui.useraccounts
 
-import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.minimoneybox.api.TaskResult

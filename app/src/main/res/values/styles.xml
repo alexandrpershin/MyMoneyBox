@@ -49,4 +49,23 @@
         <item name="android:textColor">@color/shakespeare</item>
     </style>
 
+    <style name="ToolbarButton">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
+        <item name="android:layout_width">?android:attr/actionBarSize</item>
+    </style>
+
+    <style name="ToolbarActionButton" parent="ToolbarButton">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/margin_small</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="ToolbarTitle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/aqua_50</item>
+    </style>
+
 </resources>

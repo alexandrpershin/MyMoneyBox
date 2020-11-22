@@ -12,11 +12,12 @@ import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.databinding.FragmentUserAccountsBinding
 import com.example.minimoneybox.extensions.*
 import com.example.minimoneybox.ui.BaseFragment
+import com.example.minimoneybox.ui.cutomview.ToolbarPrimaryButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccountsViewModel>() {
 
-    private lateinit var accountsAdapter : UserAccountsAdapter
+    private lateinit var accountsAdapter: UserAccountsAdapter
 
     override val viewModel: UserAccountsViewModel by viewModel()
 
@@ -26,6 +27,7 @@ class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccou
     ): FragmentUserAccountsBinding = FragmentUserAccountsBinding.inflate(inflater, container, false)
 
     override fun initComponents(binding: FragmentUserAccountsBinding) {
+        binding.toolbar.title = getString(R.string.title_user_accounts_screen)
 
         accountsAdapter = UserAccountsAdapter(requireContext())
 

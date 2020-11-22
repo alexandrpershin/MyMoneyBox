@@ -5,35 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.example.minimoneybox.ui.cutomview.ToolbarDefault
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:elevation="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/titleTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:layout_marginTop="@dimen/margin_large"
-                android:fontFamily="@font/poppins_bold"
-                android:text="@string/title_user_accounts_screen"
-                android:textColor="@color/aqua_50"
-                android:textSize="@dimen/screen_title_text_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:maxLines="1"
@@ -46,7 +41,7 @@
                 android:visibility="visible"
                 android:ellipsize="end"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/titleTv"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Hello, Alex asdasdasdasd!" />
 
             <TextView
@@ -59,7 +54,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/tvGreeting"
-                app:layout_constraintTop_toBottomOf="@+id/titleTv"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Total plan value: 700$" />
 
             <androidx.recyclerview.widget.RecyclerView

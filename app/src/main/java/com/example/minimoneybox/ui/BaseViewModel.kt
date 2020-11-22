@@ -36,6 +36,11 @@ abstract class BaseViewModel : ViewModel() {
         _navigation.value = NavigationCommand.To(direction)
     }
 
+    @UiThread
+    fun goBack() {
+        _navigation.value = NavigationCommand.Back
+    }
+
     fun goToWithArgs(destinationId: Int, args: Bundle) {
         _navigation.value = NavigationCommand.WithArgs(destinationId, args)
     }

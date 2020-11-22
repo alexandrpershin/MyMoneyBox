@@ -31,7 +31,7 @@
 
 
     <dimen name="actionBarSizeAndCurrentDateView">98dp</dimen>
-
+    <dimen name="toolbar_title_margin">16dp</dimen>
 
 
 </resources>

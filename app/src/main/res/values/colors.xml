@@ -10,5 +10,6 @@
     <color name="aqua_50">#7F00c2b5</color>
     <color name="blue_lagoon">#036078</color>
     <color name="shakespeare">#80B0BC</color>
-
+    <color name="black">#000000</color>
+    <color name="colorWhite">#ffff</color>
 </resources>

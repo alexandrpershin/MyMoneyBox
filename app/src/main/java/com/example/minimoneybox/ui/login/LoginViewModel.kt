@@ -19,7 +19,7 @@ class LoginViewModel(
     private val preferences: UserPreferences,
     private val authRepository: AuthRepository,
     private val productsRepository: InvestorProductsRepository,
-    private val emailValidator: EmailValidator,
+    val emailValidator: EmailValidator,
     private val coroutineContext: CoroutineContext = Dispatchers.Main
 ) : BaseViewModel() {
 

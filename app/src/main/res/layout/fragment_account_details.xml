@@ -5,18 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/titleTv"
-        android:layout_width="wrap_content"
+    <com.example.minimoneybox.ui.cutomview.ToolbarDefault
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_normal"
-        android:layout_marginTop="@dimen/margin_large"
-        android:fontFamily="@font/poppins_bold"
-        android:text="@string/title_individual_account_screen"
-        android:textColor="@color/aqua_50"
-        android:textSize="@dimen/screen_title_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
 
     <TextView
@@ -27,7 +24,7 @@
         android:layout_marginStart="@dimen/margin_normal"
         android:layout_marginTop="@dimen/margin_large"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTv"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:text="General investment account" />
 
     <TextView

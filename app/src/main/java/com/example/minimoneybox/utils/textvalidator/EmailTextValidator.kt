@@ -5,10 +5,12 @@ import android.text.Editable
 import com.example.minimoneybox.R
 import com.google.android.material.textfield.TextInputLayout
 
-class EmailTextValidator(context: Context, textInputLayout: TextInputLayout) :
+class EmailTextValidator(
+    context: Context,
+    textInputLayout: TextInputLayout,
+    val emailValidator: EmailValidator
+) :
     EditTextValidator(context, textInputLayout) {
-
-    private val emailValidator = EmailValidatorImp()
 
     override fun afterTextChanged(text: Editable) {
         when {

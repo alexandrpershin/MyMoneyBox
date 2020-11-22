@@ -10,6 +10,7 @@ import com.example.minimoneybox.databinding.FragmentAccountDetailsBinding
 import com.example.minimoneybox.extensions.playBounceAnimation
 import com.example.minimoneybox.extensions.showErrorMessage
 import com.example.minimoneybox.ui.BaseFragment
+import com.example.minimoneybox.ui.cutomview.ToolbarPrimaryButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -27,6 +28,11 @@ class ProductAccountDetailsFragment :
         FragmentAccountDetailsBinding.inflate(inflater, container, false)
 
     override fun initComponents(binding: FragmentAccountDetailsBinding) {
+        binding.toolbar.title = getString(R.string.title_individual_account_screen)
+        binding.toolbar.setNavigationIcon(ToolbarPrimaryButton.Type.Back) {
+            viewModel.goBack()
+        }
+
     }
 
     override fun addListeners(binding: FragmentAccountDetailsBinding) {

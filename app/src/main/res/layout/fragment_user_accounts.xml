@@ -42,7 +42,7 @@
                 android:ellipsize="end"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Hello, Alex asdasdasdasd!" />
+                tools:text="Hello, Alex!" />
 
             <TextView
                 android:id="@+id/tvTotalPlanValue"
@@ -68,7 +68,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTotalPlanValue"
-                tools:itemCount="5"
+                tools:itemCount="10"
                 tools:listitem="@layout/item_investment_account" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

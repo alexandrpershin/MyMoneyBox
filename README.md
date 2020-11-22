@@ -13,7 +13,6 @@ I used Single Activity Application approach and Model-View-ViewModel architectur
  5. Chucker interceptor library to visualise network requests (is disabled for release version).
  6. Ktx library for some cool extensions
  7. Retrofit library for networking
- 8. Encryption library for encryption data in SharedPreferences   
 
 ## How app works?
 
@@ -47,6 +46,8 @@ screen. All local data will be removed.
 5. Unit tests  <br />
 I implemented some unit tests for LoginViewModel.kt and UserAccountsViewModel.kt
  
-
+6. Mock flavor added <br />
+In case if server is unavailable it's possible to test application with help of mock JSON responses.
+To do that just select mock flavor in your AndroidStudio and run the app.
 
 

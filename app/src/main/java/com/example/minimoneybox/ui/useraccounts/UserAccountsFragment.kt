@@ -12,7 +12,6 @@ import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.databinding.FragmentUserAccountsBinding
 import com.example.minimoneybox.extensions.*
 import com.example.minimoneybox.ui.BaseFragment
-import com.example.minimoneybox.ui.cutomview.ToolbarPrimaryButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserAccountsFragment : BaseFragment<FragmentUserAccountsBinding, UserAccountsViewModel>() {

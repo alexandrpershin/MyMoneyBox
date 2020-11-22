@@ -5,8 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.minimoneybox.model.User
 import com.example.minimoneybox.model.InvestorProduct
+import com.example.minimoneybox.model.User
 import com.example.minimoneybox.persistence.dao.InvestorProductDao
 import com.example.minimoneybox.persistence.dao.UserDao
 

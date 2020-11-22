@@ -1,6 +1,7 @@
 package com.example.minimoneybox.extensions
 
-import androidx.annotation.*
+import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.example.minimoneybox.app.MoneyboxApplication
 

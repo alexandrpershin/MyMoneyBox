@@ -7,9 +7,7 @@ import com.example.minimoneybox.databinding.FragmentLoginBinding
 import com.example.minimoneybox.extensions.showErrorMessage
 import com.example.minimoneybox.ui.BaseFragment
 import com.example.minimoneybox.utils.textvalidator.EmailTextValidator
-import com.example.minimoneybox.utils.textvalidator.EmailValidator
 import com.example.minimoneybox.utils.textvalidator.PasswordTextValidator
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

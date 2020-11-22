@@ -1,8 +1,8 @@
 package com.example.minimoneybox.persistence
 
 import androidx.room.TypeConverter
-import com.example.minimoneybox.model.ProductAccount
 import com.example.minimoneybox.model.InvestorProduct
+import com.example.minimoneybox.model.ProductAccount
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

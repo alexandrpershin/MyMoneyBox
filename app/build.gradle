@@ -110,9 +110,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
-    // Encryption for SharedPref aescrypt
-    implementation "com.scottyab:aescrypt:$rootProject.aescryptVersion"
-
     //Retrofit 2
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"

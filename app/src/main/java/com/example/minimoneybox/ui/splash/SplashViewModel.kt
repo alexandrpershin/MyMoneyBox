@@ -1,13 +1,13 @@
 package com.example.minimoneybox.ui.splash
 
 import androidx.lifecycle.viewModelScope
-import com.example.minimoneybox.preferences.SecuredSharedPreferences
+import com.example.minimoneybox.preferences.UserPreferences
 import com.example.minimoneybox.ui.BaseViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    private val preferences: SecuredSharedPreferences,
+    private val preferences: UserPreferences,
     private val timeDelay: Long = SPLASH_TIME_DELAY
 ) : BaseViewModel() {
 

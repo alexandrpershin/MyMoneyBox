@@ -4,7 +4,7 @@ package com.example.minimoneybox.api
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.minimoneybox.BuildConfig
-import com.example.minimoneybox.preferences.SecuredSharedPreferences
+import com.example.minimoneybox.preferences.UserPreferences
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -32,19 +32,19 @@ class BackendApiFactory {
         return consoleInterceptor
     }
 
-    private fun provideHeaderInterceptor(securedPreferences: SecuredSharedPreferences): HeaderInterceptor {
-        return HeaderInterceptor(securedPreferences)
+    private fun provideHeaderInterceptor(preferences: UserPreferences): HeaderInterceptor {
+        return HeaderInterceptor(preferences)
     }
 
     fun provideRetrofit(
         application: Context,
-        securedPreferences: SecuredSharedPreferences
+        preferences: UserPreferences
     ): Retrofit {
         val retrofit =
             Retrofit.Builder()
                 .addConverterFactory(gsonFactory)
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .client(provideOkHttpClient(application, securedPreferences))
+                .client(provideOkHttpClient(application, preferences))
                 .baseUrl(BASE_URL)
                 .build()
 
@@ -53,7 +53,7 @@ class BackendApiFactory {
 
     private fun provideOkHttpClient(
         application: Context,
-        securedPreferences: SecuredSharedPreferences
+        preferences: UserPreferences
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             connectTimeout(150, TimeUnit.SECONDS)
@@ -64,7 +64,7 @@ class BackendApiFactory {
                 addInterceptor(MockInterceptor())
             } else {
                 addInterceptor(provideHttpLoggingInterceptor())
-                addInterceptor(provideHeaderInterceptor(securedPreferences))
+                addInterceptor(provideHeaderInterceptor(preferences))
             }
         }.build()
     }

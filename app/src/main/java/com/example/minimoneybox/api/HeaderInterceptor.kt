@@ -1,12 +1,12 @@
 package com.example.minimoneybox.api
 
 
-import com.example.minimoneybox.preferences.SecuredSharedPreferences
+import com.example.minimoneybox.preferences.UserPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 
-class HeaderInterceptor(private val preferences: SecuredSharedPreferences) : Interceptor {
+class HeaderInterceptor(private val preferences: UserPreferences) : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {

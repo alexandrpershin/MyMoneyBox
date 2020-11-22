@@ -6,7 +6,7 @@ import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.api.TaskResult
 import com.example.minimoneybox.api.response.LoginResponse
 import com.example.minimoneybox.model.User
-import com.example.minimoneybox.preferences.SecuredSharedPreferences
+import com.example.minimoneybox.preferences.UserPreferences
 import com.example.minimoneybox.repository.AuthRepository
 import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.ui.BaseViewModel
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class LoginViewModel(
-    private val preferences: SecuredSharedPreferences,
+    private val preferences: UserPreferences,
     private val authRepository: AuthRepository,
     private val productsRepository: InvestorProductsRepository,
     private val emailValidator: EmailValidator,

@@ -1,9 +1,8 @@
-package com.example.minimoneybox.utils
+package com.example.minimoneybox.utils.textvalidator
 
 import android.content.Context
 import android.text.Editable
 import com.example.minimoneybox.R
-import com.example.minimoneybox.utils.textvalidator.EditTextValidator
 import com.google.android.material.textfield.TextInputLayout
 
 class PasswordTextValidator(context: Context, textInputLayout: TextInputLayout) :

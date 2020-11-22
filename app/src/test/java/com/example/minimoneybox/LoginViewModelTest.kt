@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import com.example.minimoneybox.api.ErrorType
 import com.example.minimoneybox.api.TaskResult
 import com.example.minimoneybox.api.response.LoginResponse
-import com.example.minimoneybox.preferences.SecuredSharedPreferences
+import com.example.minimoneybox.preferences.UserPreferences
 import com.example.minimoneybox.repository.AuthRepository
 import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.ui.login.LoginViewModel
@@ -47,14 +47,14 @@ class LoginViewModelTest {
     private lateinit var emailValidator: EmailValidator
 
     @Mock
-    private lateinit var securedPreferences: SecuredSharedPreferences
+    private lateinit var preferences: UserPreferences
 
     @Before
     fun initDependencies() {
         MockitoAnnotations.initMocks(this)
 
         viewModel = LoginViewModel(
-            securedPreferences,
+            preferences,
             authRepository,
             productsRepository,
             emailValidator,

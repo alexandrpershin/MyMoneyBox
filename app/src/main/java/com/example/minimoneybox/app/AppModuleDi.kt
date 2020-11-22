@@ -3,8 +3,7 @@ package com.example.minimoneybox.app
 import com.example.minimoneybox.api.BackendApiFactory
 import com.example.minimoneybox.api.createApiService
 import com.example.minimoneybox.persistence.LocalDatabase
-import com.example.minimoneybox.preferences.SecuredSharedPreferences
-import com.example.minimoneybox.preferences.SecuredSharedPreferencesImpl
+import com.example.minimoneybox.preferences.UserPreferences
 import com.example.minimoneybox.repository.AuthRepository
 import com.example.minimoneybox.repository.InvestorProductsRepository
 import com.example.minimoneybox.repository.repositoryImpl.AuthRepositoryImpl
@@ -19,8 +18,8 @@ import retrofit2.Retrofit
 
 val appModule: Module = module {
 
-    //SecuredSharedPreferences
-    single<SecuredSharedPreferences> { SecuredSharedPreferencesImpl(androidApplication()) }
+    //UserPreferences
+    single<UserPreferences> { UserPreferences(androidApplication()) }
 
     //Retrofit
     single<Retrofit> { BackendApiFactory().provideRetrofit(get(), get()) }
